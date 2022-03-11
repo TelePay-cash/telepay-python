@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "telepay"
+version = "0.0.1"
+description = "Python SDK for the TelePay API"
+authors = ["Carlos Lugones <contact@lugodev.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/TelePay-cash/telepay-python"
+repository = "https://github.com/TelePay-cash/telepay-python"
+keywords = ["payments", "gateway", "cryptocurrencies", "TON"]
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Environment :: Console",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Programming Language :: Python",
+    "Intended Audience :: Developers",
+    "Natural Language :: English"
+]
+include = [
+    "LICENSE",
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/TelePay-cash/telepay-python/issues"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
