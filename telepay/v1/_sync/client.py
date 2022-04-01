@@ -18,15 +18,17 @@ from ..models.assets import Assets
 class SyncTelePayClient:
     """
     Creates a TelePay client.
+    * API_PUBLIC: Your merchant public API key.
     * API_SECRET: Your merchant private API key.
     Any requests without this authentication key will result in error 403.
     """
 
+    api_public: str
     api_secret: str
     timeout: TimeoutTypes = field(default=DEFAULT_TIMEOUT_CONFIG)
 
     def __post_init__(self):
-        self.auth_params = {'api_secret': self.api_secret}
+        self.auth_params = {'api_public': self.api_public, 'api_secret': self.api_secret}
         self.base_url = 'https://api.telepay.cash/rest/'
         self.http_client = SyncClient(
             base_url=self.base_url,
@@ -48,7 +50,7 @@ class SyncTelePayClient:
         auth: TelePayAuth,
         timeout: TimeoutTypes = DEFAULT_TIMEOUT_CONFIG,
     ) -> "SyncTelePayClient":
-        return SyncTelePayClient(auth.api_secret, timeout)
+        return SyncTelePayClient(auth.api_public, auth.api_secret, timeout)
 
     def getMe(
         self,
