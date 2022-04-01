@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from typing import Any
-from uuid import UUID
 
 from ..utils import parse_json
 
@@ -10,11 +9,11 @@ class Info:
 
     name: str
     url: str  # AnyUrl
-    name: str
     logo_url: str
     logo_thumbnail_url: str
     first_name: str
     last_name: str
+    username: str
 
     def __post_init__(self):
         self.name = str(self.name)
@@ -27,4 +26,10 @@ class Info:
 
     @classmethod
     def from_json(cls, json: Any) -> "Info":
+        json['first_name'] = str(json['first_name'])
+        json['last_name'] = str(json['last_name'])
+        json['username'] = str(json['username'])
+        del json['first_name']
+        del json['last_name']
+        del json['username']
         return parse_json(cls, **json)

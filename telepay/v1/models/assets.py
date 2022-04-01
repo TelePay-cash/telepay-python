@@ -7,15 +7,19 @@ from ..utils import parse_json
 @dataclass
 class Assets:
 
-    assets: str
+    url: str
+    asset: str
+    networks: str
     blockchain: str
 
     def __post_init__(self):
+        self.url = str(self.url)
         self.assets = str(self.assets)
+        self.networks = str(self.networks)
         self.blockchain = str(self.blockchain)
 
     @classmethod
     def from_json(cls, json: Any) -> 'Assets':
-        json["assets"] = json["assets"]
-        del json["assets"]
+        json["asset"] = str(json["asset"])
+        del json["asset"]
         return parse_json(cls, **json)

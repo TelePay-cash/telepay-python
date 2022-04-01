@@ -12,6 +12,7 @@ class Transfer:
     amount: float
     username: str
     message: str
+    success: bool
 
     def __post_init__(self):
         self.asset = str(self.asset)
@@ -20,7 +21,10 @@ class Transfer:
         self.amount = float(str(self.amount))
         self.username = str(self.username)
         self.message = str(self.message)
+        self.success = bool(self.success)
 
     @classmethod
     def from_json(cls, json: Any) -> 'Transfer':
+        json['success'] = bool(json['success'])
+        del json['success']
         return parse_json(cls, **json)
