@@ -18,6 +18,6 @@ class Balance:
 
     @classmethod
     def from_json(cls, json: Any) -> 'Balance':
-        json["balance"] = json["balance"]
+        json["balance"] = float(json["balance"])
         del json["balance"]
         return parse_json(cls, **json)
