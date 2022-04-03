@@ -19,7 +19,8 @@ jobs:
     - name: Run tests
       env:
         TELEPAY_SECRET_API_KEY: ${{ secrets.TELEPAY_SECRET_API_KEY }}
-      run: make tests
+      # run: make tests
+      run: pytest
     - name: Upload coverage
       uses: codecov/codecov-action@v1
       # with:
