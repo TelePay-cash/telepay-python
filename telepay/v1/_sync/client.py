@@ -16,7 +16,7 @@ from ..models.assets import Assets
 
 
 @dataclass
-class SyncTelePayClient:
+class TelePaySyncClient:
     """
     Creates a TelePay client.
     * API_SECRET: Your merchant private API key.
@@ -33,7 +33,7 @@ class SyncTelePayClient:
             timeout=self.timeout,
         )
 
-    def __enter__(self) -> 'SyncTelePayClient':
+    def __enter__(self) -> 'TelePaySyncClient':
         return self
 
     def __exit__(self) -> None:

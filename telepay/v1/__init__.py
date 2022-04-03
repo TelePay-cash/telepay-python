@@ -1,4 +1,4 @@
-from ._sync.client import SyncTelePayClient
+from ._sync.client import TelePaySyncClient
 from .auth import TelePayAuth
 from .errors import TelePayError
 from .models.account import Account
