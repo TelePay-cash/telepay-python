@@ -31,6 +31,7 @@ python-dotenv = "^0.20.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+anyio = {extras = ["trio"], version = "^3.3.4"}
 flake8 = "^4.0.1"
 
 [build-system]
