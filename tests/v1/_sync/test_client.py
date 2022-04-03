@@ -4,28 +4,25 @@ from pytest import mark as pytest_mark
 from telepay.v1 import TelePaySyncClient, TelePayError, TelePayAuth, Invoice
 
 
-@fixture(name='client')
+@fixture(name="client")
 def create_client():
     client = TelePaySyncClient.from_auth(TelePayAuth())
     yield client
     client.close()
 
 
-@fixture(name='invoice')
+@fixture(name="invoice")
 def create_invoice(client: TelePaySyncClient):
     invoice = client.create_invoice(
-        asset='TON',
-        blockchain='TON',
-        network='testnet',
+        asset="TON",
+        blockchain="TON",
+        network="testnet",
         amount=1,
-        description='Testing',
-        metadata={
-            'color': 'red',
-            'size': 'large'
-        },
-        success_url='https://example.com/success',
-        cancel_url='https://example.com/cancel',
-        expires_at=1
+        description="Testing",
+        metadata={"color": "red", "size": "large"},
+        success_url="https://example.com/success",
+        cancel_url="https://example.com/cancel",
+        expires_at=1,
     )
     yield invoice
 

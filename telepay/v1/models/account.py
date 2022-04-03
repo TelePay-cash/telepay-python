@@ -13,5 +13,5 @@ class Account:
 
     @classmethod
     def from_json(cls, json: Any) -> "Account":
-        del json['version']
+        del json["version"]
         return parse_json(cls, **json)

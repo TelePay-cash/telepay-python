@@ -12,5 +12,5 @@ class Assets:
         pass
 
     @classmethod
-    def from_json(cls, json: Any) -> 'Assets':
+    def from_json(cls, json: Any) -> "Assets":
         return parse_json(cls, **json)
