@@ -1,7 +1,10 @@
 from dataclasses import dataclass
+from datetime import date, datetime
 from typing import Any
 
 from ..utils import parse_json
+
+FORMAT = '%Y-%m-%dT%H:%M:%S.%fZ'
 
 
 @dataclass
@@ -23,9 +26,9 @@ class Invoice:
     explorer_url: str
     checkout_url: str
 
-    created_at: str
-    updated_at: str
-    expires_at: int
+    created_at: datetime
+    updated_at: datetime
+    expires_at: datetime
 
     def __post_init__(self):
         self.asset = str(self.asset)
@@ -42,12 +45,25 @@ class Invoice:
         self.number = str(self.number)
         self.metadata = str(self.metadata)
         
-        self.created_at = str(self.created_at)
-        self.updated_at = str(self.updated_at)
-        self.expires_at = int(str(self.expires_at))
+        self.created_at = datetime.strptime(self.created_at, FORMAT)
+        self.expires_at = datetime.strptime(self.expires_at, FORMAT)
+
+        if self.updated_at is not None:
+            self.updated_at = datetime.strptime(self.updated_at, FORMAT)
 
     @classmethod
     def from_json(cls, json: Any) -> 'Invoice':
-        json['description'] = str(json['description'])
-        del json['description']
+        return parse_json(cls, **json)
+
+
+@dataclass
+class InvoiceList:
+
+    invoices: list
+
+    def __post_init__(self):
+        self.invoices = [Invoice.from_json(invoice) for invoice in self.invoices]
+
+    @classmethod
+    def from_json(cls, json: Any) -> 'InvoiceList':
         return parse_json(cls, **json)

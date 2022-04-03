@@ -5,4 +5,4 @@ from typing import Optional
 @dataclass
 class TelePayError(Exception):
     status_code: int
-    status_message: Optional[str] = field(default=None)
+    message: Optional[str] = field(default=None)

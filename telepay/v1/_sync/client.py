@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from datetime import datetime
 from httpx._config import DEFAULT_TIMEOUT_CONFIG
 from httpx._types import TimeoutTypes
 
@@ -6,11 +7,11 @@ from ..auth import TelePayAuth
 from ..http_clients import SyncClient
 from ..utils import validate_response
 
-from ..models.info import Info
-from ..models.invoice import Invoice
+from ..models.account import Account
+from ..models.invoice import Invoice, InvoiceList
 from ..models.transfer import Transfer
 from ..models.withdraw import Withdraw
-from ..models.balance import Balance
+from ..models.wallets import Wallets
 from ..models.assets import Assets
 
 
@@ -18,21 +19,17 @@ from ..models.assets import Assets
 class SyncTelePayClient:
     """
     Creates a TelePay client.
-    * API_PUBLIC: Your merchant public API key.
     * API_SECRET: Your merchant private API key.
     Any requests without this authentication key will result in error 403.
     """
 
-    api_public: str
-    api_secret: str
     timeout: TimeoutTypes = field(default=DEFAULT_TIMEOUT_CONFIG)
 
-    def __post_init__(self):
-        self.auth_params = {'api_public': self.api_public, 'api_secret': self.api_secret}
+    def __init__(self, secret_api_key) -> None:
         self.base_url = 'https://api.telepay.cash/rest/'
         self.http_client = SyncClient(
             base_url=self.base_url,
-            params=self.auth_params,
+            headers={'Authorization': secret_api_key},
             timeout=self.timeout,
         )
 
@@ -45,177 +42,71 @@ class SyncTelePayClient:
     def close(self) -> None:
         self.http_client.aclose()
 
-    @staticmethod
-    def from_auth(
-        auth: TelePayAuth,
-        timeout: TimeoutTypes = DEFAULT_TIMEOUT_CONFIG,
-    ) -> "SyncTelePayClient":
-        return SyncTelePayClient(auth.api_public, auth.api_secret, timeout)
-
-    def getMe(
-        self,
-        name: str,
-        url: str,
-        logo_url: str,
-        logo_thumbnail_url: str,
-        first_name: str,
-        last_name: str,
-        username: str,
-    ) -> Info:
+    def get_me(self) -> Account:
         """
-        Info about the current merchant.
+        Info about the current account
         """
-
-        response = self.http_client.get('getMe', params={
-            'name': name,
-            'url': url,
-            'logo_url': logo_url,
-            'logo_thumbnail_url': logo_thumbnail_url,
-            'first_name': first_name,
-            'last_name': last_name,
-            'username': username
-        })
+        response = self.http_client.get('getMe')
         validate_response(response)
-        return Info.from_json(response.json())
+        return Account.from_json(response.json())
 
-    def getBalance(
-        self,
-        asset: str,
-        blockchain: str,
-        balance: float,
-    ) -> Balance:
+    def get_balance(self) -> Wallets:
         """
         Get your merchant wallet assets with corresponding balance
         """
-
-        response = self.http_client.get('getBalance', params={
-            'asset': asset,
-            'blockchain': blockchain,
-            'balance': balance,
-        })
+        response = self.http_client.get('getBalance')
         validate_response(response)
-        return Balance.from_json(response.json())
+        return Wallets.from_json(response.json())
 
-    def getAssets(
-        self,
-        assets: str,
-        blockchain: str,
-        url: str,
-        networks: str
-    ) -> Assets:
+    def get_assets(self) -> Assets:
         """
         Get assets suported by TelePay
         """
-
-        response = self.http_client.get('getAssets', params={
-            'url': url,
-            'assets': assets,
-            'blockchain': blockchain,
-            'networks': networks,
-        })
+        response = self.http_client.get('getAssets')
         validate_response(response)
         return Assets.from_json(response.json())
 
-    def getInvoices(
-        self,
-        asset: str,
-        blockchain: str,
-        amount: str,
-        status: str,
-        number: str,
-        description: str,
-        metadata: str,
-        hidden_message: str,
-        created_at: str,
-        updated_at: str,
-    ) -> Invoice:
+    def get_invoices(self) -> InvoiceList:
         """
         Get your merchant invoices
         """
-        response = self.http_client.get(f'getInvoices', params={
-            'number': number,
-            'asset': asset,
-            'blockchain': blockchain,
-            'status': status,
-            'amount': amount,
-            'description': description,
-            'hidden_message': hidden_message,
-            'metadata': metadata,
-            'created_at': created_at,
-            'updated_at': updated_at,
-        })
+        response = self.http_client.get('getInvoices')
         validate_response(response)
-        return Invoice.from_json(response.json())
+        return InvoiceList.from_json(response.json())
 
-    def getInvoice(
-        self,
-        asset: str,
-        blockchain: str,
-        amount: str,
-        status: str,
-        number: str,
-        description: str,
-        metadata: str,
-        hidden_message: str,
-        created_at: str,
-        updated_at: str,
-    ) -> Invoice:
+    def get_invoice(self, number: str) -> Invoice:
         """
         Get invoice details, by ID
         """
-        response = self.http_client.get(f'getInvoice/{number}', params={
-            'number': number,
-            'asset': asset,
-            'blockchain': blockchain,
-            'status': status,
-            'amount': amount,
-            'description': description,
-            'hidden_message': hidden_message,
-            'metadata': metadata,
-            'created_at': created_at,
-            'updated_at': updated_at,
-        })
+        response = self.http_client.get(f'getInvoice/{number}')
         validate_response(response)
         return Invoice.from_json(response.json())
 
-    def createInvoice(
+    def create_invoice(
         self,
-        number: str,
         asset: str,
         blockchain: str,
         network: str,
-        status: str,
         amount: float,
-        description: str,
-        hidden_message: str,
         success_url: str,
         cancel_url: str,
-        explorer_url: str,
-        checkout_url: str,
         expires_at: int,
-        created_at: str,
-        updated_at: str,
+        metadata:dict=None,
+        description:str=None,
     ) -> Invoice:
         """
         Create an invoice
         """
-
-        response = self.http_client.post('createInvoice', params={
-            'number': number,
+        response = self.http_client.post('createInvoice', json={
             'asset': asset,
             'blockchain': blockchain,
             'network': network,
             'amount': amount,
-            'status': status,
             'description': description,
-            'hidden_message': hidden_message,
+            'metadata': metadata,
             'success_url': success_url,
             'cancel_url': cancel_url,
-            'checkout_url': checkout_url,
-            'explorer_url': explorer_url,
             'expires_at': expires_at,
-            'created_at': created_at,
-            'updated_at': updated_at,
         })
         validate_response(response)
         return Invoice.from_json(response.json())
@@ -234,8 +125,7 @@ class SyncTelePayClient:
         Transfer funds between internal wallets.
         Off-chain operation.
         """
-
-        response = self.http_client.post('transfer', params={
+        response = self.http_client.post('transfer', json={
             'asset': asset,
             'blockchain': blockchain,
             'network': network,
@@ -261,7 +151,7 @@ class SyncTelePayClient:
         Withdraw funds from merchant wallet to external wallet.
         On-chain operation.
         """
-        response = self.http_client.post('withdraw', params={
+        response = self.http_client.post('withdraw', json={
             'asset': asset,
             'blockchain': blockchain,
             'network': network,
@@ -288,7 +178,7 @@ class SyncTelePayClient:
         """
         Get estimated withdraw fee, composed of blockchain fee and processing fee.
         """
-        response = self.http_client.post('getWithdrawFee', params={
+        response = self.http_client.post('getWithdrawFee', json={
             'asset': asset,
             'blockchain': blockchain,
             'network': network,
