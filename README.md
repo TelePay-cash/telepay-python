@@ -36,19 +36,13 @@ To make requests to the TelePay API, you need to import a client. We have two cl
 * `TelePaySyncClient`: make requests synchronously.
 * `TelePayAsyncClient` make requests asynchronously.
 
-## ToDo
-
-* Transfer
-* Withdraw
-* Get withdraw fee
-* Webhooks
-
 **Import and use the client**
 
 ```python
-from telepay.v1 import TelePaySyncClient
+from telepay.v1 import TelePaySyncClient, TelePayAsyncClient
 
 client = TelePaySyncClient(secret_api_key)
+client = TelePayAsyncClient(secret_api_key)
 ```
 
 **Use the client as a context manager**
@@ -141,6 +135,13 @@ invoice = client.create_invoice(
     expires_at=30
 )
 ```
+
+## ToDo
+
+* Transfer
+* Withdraw
+* Get withdraw fee
+* Webhooks
 
 ## Contributors ✨
 
