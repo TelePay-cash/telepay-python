@@ -1,3 +1,4 @@
+from ._async.client import TelePayAsyncClient
 from ._sync.client import TelePaySyncClient
 from .auth import TelePayAuth
 from .errors import TelePayError

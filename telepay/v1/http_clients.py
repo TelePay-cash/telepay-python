@@ -1,3 +1,4 @@
+from httpx import AsyncClient  # noqa
 from httpx import Client as BaseClient
 
 

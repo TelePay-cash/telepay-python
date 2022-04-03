@@ -41,6 +41,10 @@ class TelePaySyncClient:
 
     def close(self) -> None:
         self.http_client.aclose()
+    
+    @staticmethod
+    def from_auth(auth: TelePayAuth) -> "TelePaySyncClient":
+        return TelePaySyncClient(auth.secret_api_key)
 
     def get_me(self) -> Account:
         """
@@ -118,8 +122,7 @@ class TelePaySyncClient:
         network: str,
         amount: float,
         username: str,
-        message: str,
-        success: bool
+        message: str
     ) -> Transfer:
         """
         Transfer funds between internal wallets.
@@ -131,8 +134,7 @@ class TelePaySyncClient:
             'network': network,
             'amount': amount,
             'username': username,
-            'message': message,
-            'success': success
+            'message': message
         })
         validate_response(response)
         return Transfer.from_json(response.json())
@@ -144,8 +146,7 @@ class TelePaySyncClient:
         network: str,
         amount: float,
         to_address: str,
-        message: str,
-        success: bool
+        message: str
     ) -> Withdraw:
         """
         Withdraw funds from merchant wallet to external wallet.
@@ -157,8 +158,7 @@ class TelePaySyncClient:
             'network': network,
             'amount': amount,
             'to_address': to_address,
-            'message': message,
-            'success': success
+            'message': message
         })
         validate_response(response)
         return Withdraw.from_json(response.json())
@@ -170,10 +170,7 @@ class TelePaySyncClient:
         network: str,
         amount: float,
         to_address: str,
-        message: str,
-        blockchain_fee: float,
-        processing_fee: float,
-        total: float
+        message: str
     ) -> Withdraw:
         """
         Get estimated withdraw fee, composed of blockchain fee and processing fee.
@@ -184,10 +181,7 @@ class TelePaySyncClient:
             'network': network,
             'amount': amount,
             'to_address': to_address,
-            'message': message,
-            'blockchain_fee': blockchain_fee,
-            'processing_fee': processing_fee,
-            'total': total,
+            'message': message
         })
         validate_response(response)
         return Withdraw.from_json(response.json())
