@@ -3,6 +3,7 @@ from typing import Any
 
 from ..utils import parse_json
 
+
 @dataclass
 class Transfer:
 

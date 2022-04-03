@@ -3,6 +3,7 @@ from typing import Any
 
 from ..utils import parse_json
 
+
 @dataclass
 class Withdraw:
 
@@ -12,13 +13,10 @@ class Withdraw:
     amount: float
     to_address: str
     message: str
-
     blockchain_fee: float
     processing_fee: float
     total: float
-
     success: bool
-
 
     def __post_init__(self):
         self.asset = str(self.asset)

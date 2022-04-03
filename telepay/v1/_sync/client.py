@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from datetime import datetime
 from httpx._config import DEFAULT_TIMEOUT_CONFIG
 from httpx._types import TimeoutTypes
 
@@ -41,7 +40,7 @@ class TelePaySyncClient:
 
     def close(self) -> None:
         self.http_client.aclose()
-    
+
     @staticmethod
     def from_auth(auth: TelePayAuth) -> "TelePaySyncClient":
         return TelePaySyncClient(auth.secret_api_key)
@@ -95,8 +94,8 @@ class TelePaySyncClient:
         success_url: str,
         cancel_url: str,
         expires_at: int,
-        metadata:dict=None,
-        description:str=None,
+        metadata: dict = None,
+        description: str = None,
     ) -> Invoice:
         """
         Create an invoice
