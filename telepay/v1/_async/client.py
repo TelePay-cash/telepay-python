@@ -8,8 +8,6 @@ from ..http_clients import AsyncClient
 from ..models.account import Account
 from ..models.assets import Assets
 from ..models.invoice import Invoice, InvoiceList
-# from ..models.transfer import Transfer
-# from ..models.withdraw import Withdraw
 from ..models.wallets import Wallets
 from ..utils import validate_response
 
@@ -24,8 +22,9 @@ class TelePayAsyncClient:
 
     timeout: TimeoutTypes = field(default=DEFAULT_TIMEOUT_CONFIG)
 
-    def __init__(self, secret_api_key) -> None:
+    def __init__(self, secret_api_key, timeout=DEFAULT_TIMEOUT_CONFIG) -> None:
         self.base_url = "https://api.telepay.cash/rest/"
+        self.timeout = timeout
         self.http_client = AsyncClient(
             base_url=self.base_url,
             headers={"Authorization": secret_api_key},
@@ -42,8 +41,10 @@ class TelePayAsyncClient:
         await self.http_client.aclose()
 
     @staticmethod
-    def from_auth(auth: TelePayAuth) -> "TelePayAsyncClient":
-        return TelePayAsyncClient(auth.secret_api_key)
+    def from_auth(
+        auth: TelePayAuth, timeout=DEFAULT_TIMEOUT_CONFIG
+    ) -> "TelePayAsyncClient":
+        return TelePayAsyncClient(auth.secret_api_key, timeout=timeout)
 
     async def get_me(self) -> Account:
         """

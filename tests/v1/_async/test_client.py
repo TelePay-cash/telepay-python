@@ -1,12 +1,15 @@
+from httpx import Timeout
 from pytest import fixture
 from pytest import mark as pytest_mark
 
 from telepay.v1 import Invoice, TelePayAsyncClient, TelePayAuth, TelePayError
 
+TIMEOUT = 20
+
 
 @fixture(name="client")
 async def create_client():
-    client = TelePayAsyncClient.from_auth(TelePayAuth())
+    client = TelePayAsyncClient.from_auth(TelePayAuth(), timeout=Timeout(TIMEOUT))
     yield client
     await client.close()
 

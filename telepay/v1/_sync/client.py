@@ -24,8 +24,9 @@ class TelePaySyncClient:
 
     timeout: TimeoutTypes = field(default=DEFAULT_TIMEOUT_CONFIG)
 
-    def __init__(self, secret_api_key) -> None:
+    def __init__(self, secret_api_key, timeout=DEFAULT_TIMEOUT_CONFIG) -> None:
         self.base_url = "https://api.telepay.cash/rest/"
+        self.timeout = timeout
         self.http_client = SyncClient(
             base_url=self.base_url,
             headers={"Authorization": secret_api_key},
@@ -42,8 +43,10 @@ class TelePaySyncClient:
         self.http_client.aclose()
 
     @staticmethod
-    def from_auth(auth: TelePayAuth) -> "TelePaySyncClient":
-        return TelePaySyncClient(auth.secret_api_key)
+    def from_auth(
+        auth: TelePayAuth, timeout=DEFAULT_TIMEOUT_CONFIG
+    ) -> "TelePaySyncClient":
+        return TelePaySyncClient(auth.secret_api_key, timeout=timeout)
 
     def get_me(self) -> Account:
         """
