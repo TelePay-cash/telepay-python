@@ -16,6 +16,8 @@ jobs:
       uses: abatilo/actions-poetry@v2.1.0
       with:
         poetry-version: 1.1.2
+    - name: Install dependencies
+      run: poetry install
     - name: Run tests
       env:
         TELEPAY_SECRET_API_KEY: ${{ secrets.TELEPAY_SECRET_API_KEY }}
