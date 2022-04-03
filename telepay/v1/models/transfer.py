@@ -25,7 +25,7 @@ class Transfer:
         self.success = bool(self.success)
 
     @classmethod
-    def from_json(cls, json: Any) -> 'Transfer':
-        json['success'] = bool(json['success'])
-        del json['success']
+    def from_json(cls, json: Any) -> "Transfer":
+        json["success"] = bool(json["success"])
+        del json["success"]
         return parse_json(cls, **json)

@@ -8,6 +8,7 @@ from ..utils import validate_response
 
 from ..models.account import Account
 from ..models.invoice import Invoice, InvoiceList
+
 # from ..models.transfer import Transfer
 # from ..models.withdraw import Withdraw
 from ..models.wallets import Wallets
@@ -25,14 +26,14 @@ class TelePayAsyncClient:
     timeout: TimeoutTypes = field(default=DEFAULT_TIMEOUT_CONFIG)
 
     def __init__(self, secret_api_key) -> None:
-        self.base_url = 'https://api.telepay.cash/rest/'
+        self.base_url = "https://api.telepay.cash/rest/"
         self.http_client = AsyncClient(
             base_url=self.base_url,
-            headers={'Authorization': secret_api_key},
+            headers={"Authorization": secret_api_key},
             timeout=self.timeout,
         )
 
-    async def __aenter__(self) -> 'TelePayAsyncClient':
+    async def __aenter__(self) -> "TelePayAsyncClient":
         return self
 
     async def __aexit__(self, exc_t, exc_v, exc_tb) -> None:
@@ -49,7 +50,7 @@ class TelePayAsyncClient:
         """
         Info about the current account
         """
-        response = await self.http_client.get('getMe')
+        response = await self.http_client.get("getMe")
         validate_response(response)
         return Account.from_json(response.json())
 
@@ -57,7 +58,7 @@ class TelePayAsyncClient:
         """
         Get your merchant wallet assets with corresponding balance
         """
-        response = await self.http_client.get('getBalance')
+        response = await self.http_client.get("getBalance")
         validate_response(response)
         return Wallets.from_json(response.json())
 
@@ -65,7 +66,7 @@ class TelePayAsyncClient:
         """
         Get assets suported by TelePay
         """
-        response = await self.http_client.get('getAssets')
+        response = await self.http_client.get("getAssets")
         validate_response(response)
         return Assets.from_json(response.json())
 
@@ -73,7 +74,7 @@ class TelePayAsyncClient:
         """
         Get your merchant invoices
         """
-        response = await self.http_client.get('getInvoices')
+        response = await self.http_client.get("getInvoices")
         validate_response(response)
         return InvoiceList.from_json(response.json())
 
@@ -81,7 +82,7 @@ class TelePayAsyncClient:
         """
         Get invoice details, by ID
         """
-        response = await self.http_client.get(f'getInvoice/{number}')
+        response = await self.http_client.get(f"getInvoice/{number}")
         validate_response(response)
         return Invoice.from_json(response.json())
 
@@ -100,16 +101,19 @@ class TelePayAsyncClient:
         """
         Create an invoice
         """
-        response = await self.http_client.post('createInvoice', json={
-            'asset': asset,
-            'blockchain': blockchain,
-            'network': network,
-            'amount': amount,
-            'description': description,
-            'metadata': metadata,
-            'success_url': success_url,
-            'cancel_url': cancel_url,
-            'expires_at': expires_at,
-        })
+        response = await self.http_client.post(
+            "createInvoice",
+            json={
+                "asset": asset,
+                "blockchain": blockchain,
+                "network": network,
+                "amount": amount,
+                "description": description,
+                "metadata": metadata,
+                "success_url": success_url,
+                "cancel_url": cancel_url,
+                "expires_at": expires_at,
+            },
+        )
         validate_response(response)
         return Invoice.from_json(response.json())

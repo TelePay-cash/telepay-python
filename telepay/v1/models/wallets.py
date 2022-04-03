@@ -12,5 +12,5 @@ class Wallets:
         pass
 
     @classmethod
-    def from_json(cls, json: Any) -> 'Wallets':
+    def from_json(cls, json: Any) -> "Wallets":
         return parse_json(cls, **json)

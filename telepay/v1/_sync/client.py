@@ -25,14 +25,14 @@ class TelePaySyncClient:
     timeout: TimeoutTypes = field(default=DEFAULT_TIMEOUT_CONFIG)
 
     def __init__(self, secret_api_key) -> None:
-        self.base_url = 'https://api.telepay.cash/rest/'
+        self.base_url = "https://api.telepay.cash/rest/"
         self.http_client = SyncClient(
             base_url=self.base_url,
-            headers={'Authorization': secret_api_key},
+            headers={"Authorization": secret_api_key},
             timeout=self.timeout,
         )
 
-    def __enter__(self) -> 'TelePaySyncClient':
+    def __enter__(self) -> "TelePaySyncClient":
         return self
 
     def __exit__(self) -> None:
@@ -49,7 +49,7 @@ class TelePaySyncClient:
         """
         Info about the current account
         """
-        response = self.http_client.get('getMe')
+        response = self.http_client.get("getMe")
         validate_response(response)
         return Account.from_json(response.json())
 
@@ -57,7 +57,7 @@ class TelePaySyncClient:
         """
         Get your merchant wallet assets with corresponding balance
         """
-        response = self.http_client.get('getBalance')
+        response = self.http_client.get("getBalance")
         validate_response(response)
         return Wallets.from_json(response.json())
 
@@ -65,7 +65,7 @@ class TelePaySyncClient:
         """
         Get assets suported by TelePay
         """
-        response = self.http_client.get('getAssets')
+        response = self.http_client.get("getAssets")
         validate_response(response)
         return Assets.from_json(response.json())
 
@@ -73,7 +73,7 @@ class TelePaySyncClient:
         """
         Get your merchant invoices
         """
-        response = self.http_client.get('getInvoices')
+        response = self.http_client.get("getInvoices")
         validate_response(response)
         return InvoiceList.from_json(response.json())
 
@@ -81,7 +81,7 @@ class TelePaySyncClient:
         """
         Get invoice details, by ID
         """
-        response = self.http_client.get(f'getInvoice/{number}')
+        response = self.http_client.get(f"getInvoice/{number}")
         validate_response(response)
         return Invoice.from_json(response.json())
 
@@ -100,17 +100,20 @@ class TelePaySyncClient:
         """
         Create an invoice
         """
-        response = self.http_client.post('createInvoice', json={
-            'asset': asset,
-            'blockchain': blockchain,
-            'network': network,
-            'amount': amount,
-            'description': description,
-            'metadata': metadata,
-            'success_url': success_url,
-            'cancel_url': cancel_url,
-            'expires_at': expires_at,
-        })
+        response = self.http_client.post(
+            "createInvoice",
+            json={
+                "asset": asset,
+                "blockchain": blockchain,
+                "network": network,
+                "amount": amount,
+                "description": description,
+                "metadata": metadata,
+                "success_url": success_url,
+                "cancel_url": cancel_url,
+                "expires_at": expires_at,
+            },
+        )
         validate_response(response)
         return Invoice.from_json(response.json())
 
@@ -121,20 +124,23 @@ class TelePaySyncClient:
         network: str,
         amount: float,
         username: str,
-        message: str
+        message: str,
     ) -> Transfer:
         """
         Transfer funds between internal wallets.
         Off-chain operation.
         """
-        response = self.http_client.post('transfer', json={
-            'asset': asset,
-            'blockchain': blockchain,
-            'network': network,
-            'amount': amount,
-            'username': username,
-            'message': message
-        })
+        response = self.http_client.post(
+            "transfer",
+            json={
+                "asset": asset,
+                "blockchain": blockchain,
+                "network": network,
+                "amount": amount,
+                "username": username,
+                "message": message,
+            },
+        )
         validate_response(response)
         return Transfer.from_json(response.json())
 
@@ -145,20 +151,23 @@ class TelePaySyncClient:
         network: str,
         amount: float,
         to_address: str,
-        message: str
+        message: str,
     ) -> Withdraw:
         """
         Withdraw funds from merchant wallet to external wallet.
         On-chain operation.
         """
-        response = self.http_client.post('withdraw', json={
-            'asset': asset,
-            'blockchain': blockchain,
-            'network': network,
-            'amount': amount,
-            'to_address': to_address,
-            'message': message
-        })
+        response = self.http_client.post(
+            "withdraw",
+            json={
+                "asset": asset,
+                "blockchain": blockchain,
+                "network": network,
+                "amount": amount,
+                "to_address": to_address,
+                "message": message,
+            },
+        )
         validate_response(response)
         return Withdraw.from_json(response.json())
 
@@ -169,18 +178,21 @@ class TelePaySyncClient:
         network: str,
         amount: float,
         to_address: str,
-        message: str
+        message: str,
     ) -> Withdraw:
         """
         Get estimated withdraw fee, composed of blockchain fee and processing fee.
         """
-        response = self.http_client.post('getWithdrawFee', json={
-            'asset': asset,
-            'blockchain': blockchain,
-            'network': network,
-            'amount': amount,
-            'to_address': to_address,
-            'message': message
-        })
+        response = self.http_client.post(
+            "getWithdrawFee",
+            json={
+                "asset": asset,
+                "blockchain": blockchain,
+                "network": network,
+                "amount": amount,
+                "to_address": to_address,
+                "message": message,
+            },
+        )
         validate_response(response)
         return Withdraw.from_json(response.json())

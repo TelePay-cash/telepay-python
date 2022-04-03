@@ -9,8 +9,8 @@ load_dotenv()
 
 @dataclass
 class TelePayAuth:
-    secret_api_key: str = field(default=environ['TELEPAY_SECRET_API_KEY'])
+    secret_api_key: str = field(default=environ["TELEPAY_SECRET_API_KEY"])
 
     def __post_init__(self):
         if not self.secret_api_key:
-            raise TelePayError(0, 'TELEPAY_SECRET_API_KEY is not setted')
+            raise TelePayError(0, "TELEPAY_SECRET_API_KEY is not setted")

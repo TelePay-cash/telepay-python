@@ -32,7 +32,7 @@ class Withdraw:
         self.success = bool(self.success)
 
     @classmethod
-    def from_json(cls, json: Any) -> 'Withdraw':
-        json['to_address'] = str(json['to_address'])
-        del json['to_address']
+    def from_json(cls, json: Any) -> "Withdraw":
+        json["to_address"] = str(json["to_address"])
+        del json["to_address"]
         return parse_json(cls, **json)

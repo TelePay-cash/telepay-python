@@ -4,7 +4,7 @@ from typing import Any
 
 from ..utils import parse_json
 
-FORMAT = '%Y-%m-%dT%H:%M:%S.%fZ'
+FORMAT = "%Y-%m-%dT%H:%M:%S.%fZ"
 
 
 @dataclass
@@ -49,7 +49,7 @@ class Invoice:
             self.updated_at = datetime.strptime(self.updated_at, FORMAT)
 
     @classmethod
-    def from_json(cls, json: Any) -> 'Invoice':
+    def from_json(cls, json: Any) -> "Invoice":
         return parse_json(cls, **json)
 
 
@@ -62,5 +62,5 @@ class InvoiceList:
         self.invoices = [Invoice.from_json(invoice) for invoice in self.invoices]
 
     @classmethod
-    def from_json(cls, json: Any) -> 'InvoiceList':
+    def from_json(cls, json: Any) -> "InvoiceList":
         return parse_json(cls, **json)
