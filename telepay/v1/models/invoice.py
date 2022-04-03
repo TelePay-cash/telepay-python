@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import datetime
 from typing import Any
 
 from ..utils import parse_json
@@ -36,15 +36,12 @@ class Invoice:
         self.network = str(self.network)
         self.amount = str(self.amount)
         self.description = str(self.description)
-
         self.success_url = str(self.success_url)
         self.cancel_url = str(self.cancel_url)
-        
         self.status = str(self.status)
         self.hidden_message = str(self.hidden_message)
         self.number = str(self.number)
         self.metadata = str(self.metadata)
-        
         self.created_at = datetime.strptime(self.created_at, FORMAT)
         self.expires_at = datetime.strptime(self.expires_at, FORMAT)
 

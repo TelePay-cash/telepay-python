@@ -6,4 +6,4 @@ tests: install
 	poetry run black . --check
 	poetry run isort . --profile=black
 	poetry run pre-commit run --all-files
-	poetry run pytest --cov=./ --cov-report=xml
+	poetry run pytest -v --cov=./ --cov-report=xml

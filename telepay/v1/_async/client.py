@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from datetime import datetime
 from httpx._config import DEFAULT_TIMEOUT_CONFIG
 from httpx._types import TimeoutTypes
 
@@ -9,8 +8,8 @@ from ..utils import validate_response
 
 from ..models.account import Account
 from ..models.invoice import Invoice, InvoiceList
-from ..models.transfer import Transfer
-from ..models.withdraw import Withdraw
+# from ..models.transfer import Transfer
+# from ..models.withdraw import Withdraw
 from ..models.wallets import Wallets
 from ..models.assets import Assets
 
@@ -41,7 +40,7 @@ class TelePayAsyncClient:
 
     async def close(self) -> None:
         await self.http_client.aclose()
-    
+
     @staticmethod
     def from_auth(auth: TelePayAuth) -> "TelePayAsyncClient":
         return TelePayAsyncClient(auth.secret_api_key)
@@ -95,8 +94,8 @@ class TelePayAsyncClient:
         success_url: str,
         cancel_url: str,
         expires_at: int,
-        metadata:dict=None,
-        description:str=None,
+        metadata: dict = None,
+        description: str = None,
     ) -> Invoice:
         """
         Create an invoice
