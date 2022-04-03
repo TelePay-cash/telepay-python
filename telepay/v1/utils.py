@@ -1,9 +1,9 @@
-from httpx import Response
 from inspect import signature
 from typing import Any, Type, TypeVar
 
-from .errors import TelePayError
+from httpx import Response
 
+from .errors import TelePayError
 
 T = TypeVar("T")
 

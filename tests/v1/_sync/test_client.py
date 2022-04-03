@@ -1,7 +1,7 @@
 from pytest import fixture
 from pytest import mark as pytest_mark
 
-from telepay.v1 import TelePaySyncClient, TelePayError, TelePayAuth, Invoice
+from telepay.v1 import Invoice, TelePayAuth, TelePayError, TelePaySyncClient
 
 
 @fixture(name="client")
