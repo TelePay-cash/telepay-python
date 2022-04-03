@@ -37,10 +37,10 @@ class TelePayAsyncClient:
         return self
 
     async def __aexit__(self, exc_t, exc_v, exc_tb) -> None:
-        self.close()
+        await self.close()
 
     async def close(self) -> None:
-        self.http_client.aclose()
+        await self.http_client.aclose()
     
     @staticmethod
     def from_auth(auth: TelePayAuth) -> "TelePayAsyncClient":
