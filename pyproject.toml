@@ -33,8 +33,9 @@ python-dotenv = "^0.20.0"
 pytest = "^5.2"
 anyio = {extras = ["trio"], version = "^3.3.4"}
 flake8 = "^4.0.1"
-black = "^22.3.0"
 isort = "^5.10.1"
+pre-commit = "^2.18.1"
+black = "^22.3.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
