@@ -1,6 +1,6 @@
 # Python SDK for the TelePay API
 
-![TelePay Python](https://raw.githubusercontent.com/TelePay-cash/telepay-python/main/docs/cover.jpg)
+![TelePay Python](https://github.com/TelePay-cash/telepay-python/blob/dev/docs/cover.jpg?raw=true)
 
 Official TelePay client library for the Python language, so you can easely process cryptocurrency payments using the REST API.
 
