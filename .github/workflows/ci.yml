@@ -1,0 +1,28 @@
+
+name: CI
+on: [push, pull_request]
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Set up Poetry 2.1.0
+      uses: abatilo/actions-poetry@v2.1.0
+      with:
+        poetry-version: 1.1.2
+    # - name: Install dependencies
+    #   run: poetry install
+    - name: Run tests
+      env:
+        TELEPAY_SECRET_API_KEY: ${{ secrets.TELEPAY_SECRET_API_KEY }}
+      run: make tests
+    - name: Upload coverage
+      uses: codecov/codecov-action@v1
+      # with:
+      #   token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
