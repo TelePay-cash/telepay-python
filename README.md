@@ -1,10 +1,11 @@
 # Python SDK for the TelePay API
 
-![TelePay Python](https://github.com/TelePay-cash/telepay-python/blob/dev/docs/cover.jpg?raw=true)
+![TelePay Python](https://github.com/TelePay-cash/telepay-python/blob/main/cover.jpg?raw=true)
 
 Official TelePay client library for the Python language, so you can easely process cryptocurrency payments using the REST API.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Test](https://github.com/telepay-cash/telepay-python/workflows/CI/badge.svg)](https://github.com/telepay-cash/telepay-python/actions?query=workflow%3ACI)
 [![Version](https://img.shields.io/pypi/v/telepay?color=%2334D058&label=Version)](https://pypi.org/project/telepay)
 [![Last commit](https://img.shields.io/github/last-commit/telepay-cash/telepay-python.svg?style=flat)](https://github.com/telepay-cash/telepay-python/commits)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/m/telepay-cash/telepay-python)](https://github.com/telepay-cash/telepay-python/commits)
@@ -12,6 +13,9 @@ Official TelePay client library for the Python language, so you can easely proce
 [![Github Forks](https://img.shields.io/github/forks/telepay-cash/telepay-python?style=flat&logo=github)](https://github.com/telepay-cash/telepay-python/network/members)
 [![Github Watchers](https://img.shields.io/github/watchers/telepay-cash/telepay-python?style=flat&logo=github)](https://github.com/telepay-cash/telepay-python)
 [![GitHub contributors](https://img.shields.io/github/contributors/telepay-cash/telepay-python?label=code%20contributors)](https://github.com/telepay-cash/telepay-python/graphs/contributors)
+[![Downloads](https://pepy.tech/badge/telepay)](https://pepy.tech/project/telepay)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
 
 
 ## Installation
