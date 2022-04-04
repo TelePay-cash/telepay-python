@@ -1,6 +1,6 @@
 # Python SDK for the TelePay API
 
-![TelePay Python](https://github.com/TelePay-cash/telepay-python/blob/main/cover.jpg?raw=true)
+![TelePay Python](https://github.com/TelePay-cash/telepay-python/blob/main/docs/cover.jpg?raw=true)
 
 Official TelePay client library for the Python language, so you can easely process cryptocurrency payments using the REST API.
 
@@ -140,12 +140,56 @@ invoice = client.create_invoice(
 )
 ```
 
+## Webhooks
+
+> Webhooks allows you to get updates delivered to your app server whenever we have events on our side. We will send a POST request over HTTPS, with serialized JSON data of the event, to the endpoint defined by you in the Developers > Webhooks section, in your merchant dashboard. [Read more in the docs](https://telepay.readme.io/reference/webhooks).
+
+
+The `telepay.v1.webhooks` module contains utilities to manage webhooks received from your side.
+
+* `get_signature(data, secret)`: Returns a webhook signature, used to verify data integrity of the webhook. This is optional, but highly recommended.
+* `TelePayWebhookListener`: A lightweight webhook listener, to receive webhooks from TelePay. You could build your own, like using django views, flask views, or any other web framework. Your choice.
+
+**Example using `TelePayWebhookListener`**
+
+```python
+from telepay.v1.webhooks import TelePayWebhookListener
+
+
+def callback(headers, data):
+    print("Executing callback...")
+    # do your stuff here
+
+
+listener = TelePayWebhookListener(
+    secret="SECRET",
+    callback=callback,
+    host="localhost",
+    port=5000,
+    url="/webhook",
+    log_level="error",
+)
+
+listener.listen()
+```
+
+Running the listener will output something like this:
+
+![Webhook listener](https://github.com/TelePay-cash/telepay-python/blob/main/docs/webhook-listener.png?raw=true)
+
+Modify the listener parameters to your needs, knowing this:
+* `secret`: A secret token that your side knows and it's configured in the webhook definition, on the TelePay dashboard.
+* `callback`: The callback function that is called when new webhook arrives, receiving it's HTTP headers and data.
+* `host`: The host on which the listener will be running.
+* `port`: The port on which the listener will be exposed.
+* `url`: The webhook data, which is secret and should only be known by your app and TelePay. Otherwise, it could lead to security issues.
+* `log_level`: The listener logger level, like `"error"`, `"info"` or `"debug"`.
+
 ## ToDo
 
 * Transfer
 * Withdraw
 * Get withdraw fee
-* Webhooks
 
 ## Contributors ✨
 
