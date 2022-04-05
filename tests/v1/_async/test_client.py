@@ -63,3 +63,14 @@ async def test_get_invoices(client: TelePayAsyncClient):
 @pytest_mark.anyio
 async def test_get_invoice(client: TelePayAsyncClient, invoice: Invoice):
     await client.get_invoice(invoice.number)
+
+
+@pytest_mark.anyio
+async def test_cancel_invoice(client: TelePayAsyncClient, invoice: Invoice):
+    await client.cancel_invoice(invoice.number)
+
+
+@pytest_mark.anyio
+async def test_delete_invoice(client: TelePayAsyncClient, invoice: Invoice):
+    await client.cancel_invoice(invoice.number)
+    await client.delete_invoice(invoice.number)
