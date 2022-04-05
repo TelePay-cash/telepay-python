@@ -8,7 +8,6 @@ from ..http_clients import SyncClient
 from ..models.account import Account
 from ..models.assets import Assets
 from ..models.invoice import Invoice, InvoiceList
-from ..models.transfer import Transfer
 from ..models.wallets import Wallets
 from ..models.withdraw import Withdraw
 from ..utils import validate_response
@@ -144,7 +143,7 @@ class TelePaySyncClient:
         amount: float,
         username: str,
         message: str,
-    ) -> Transfer:
+    ) -> dict:
         """
         Transfer funds between internal wallets.
         Off-chain operation.
@@ -161,7 +160,7 @@ class TelePaySyncClient:
             },
         )
         validate_response(response)
-        return Transfer.from_json(response.json())
+        return response.json()
 
     def withdraw(
         self,
@@ -172,23 +171,24 @@ class TelePaySyncClient:
         to_address: str,
         message: str,
     ) -> Withdraw:
-        """
-        Withdraw funds from merchant wallet to external wallet.
-        On-chain operation.
-        """
-        response = self.http_client.post(
-            "withdraw",
-            json={
-                "asset": asset,
-                "blockchain": blockchain,
-                "network": network,
-                "amount": amount,
-                "to_address": to_address,
-                "message": message,
-            },
-        )
-        validate_response(response)
-        return Withdraw.from_json(response.json())
+        # """
+        # Withdraw funds from merchant wallet to external wallet.
+        # On-chain operation.
+        # """
+        # response = self.http_client.post(
+        #     "withdraw",
+        #     json={
+        #         "asset": asset,
+        #         "blockchain": blockchain,
+        #         "network": network,
+        #         "amount": amount,
+        #         "to_address": to_address,
+        #         "message": message,
+        #     },
+        # )
+        # validate_response(response)
+        # return Withdraw.from_json(response.json())
+        raise NotImplementedError()
 
     def getWithdrawFee(
         self,
@@ -202,16 +202,17 @@ class TelePaySyncClient:
         """
         Get estimated withdraw fee, composed of blockchain fee and processing fee.
         """
-        response = self.http_client.post(
-            "getWithdrawFee",
-            json={
-                "asset": asset,
-                "blockchain": blockchain,
-                "network": network,
-                "amount": amount,
-                "to_address": to_address,
-                "message": message,
-            },
-        )
-        validate_response(response)
-        return Withdraw.from_json(response.json())
+        # response = self.http_client.post(
+        #     "getWithdrawFee",
+        #     json={
+        #         "asset": asset,
+        #         "blockchain": blockchain,
+        #         "network": network,
+        #         "amount": amount,
+        #         "to_address": to_address,
+        #         "message": message,
+        #     },
+        # )
+        # validate_response(response)
+        # return Withdraw.from_json(response.json())
+        raise NotImplementedError()
