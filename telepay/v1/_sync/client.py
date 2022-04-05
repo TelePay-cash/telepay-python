@@ -171,10 +171,10 @@ class TelePaySyncClient:
         to_address: str,
         message: str,
     ) -> Withdraw:
-        # """
-        # Withdraw funds from merchant wallet to external wallet.
-        # On-chain operation.
-        # """
+        """
+        Withdraw funds from merchant wallet to external wallet.
+        On-chain operation.
+        """
         # response = self.http_client.post(
         #     "withdraw",
         #     json={
