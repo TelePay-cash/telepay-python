@@ -63,3 +63,14 @@ def test_get_invoices(client: TelePaySyncClient):
 @pytest_mark.anyio
 def test_get_invoice(client: TelePaySyncClient, invoice: Invoice):
     client.get_invoice(invoice.number)
+
+
+@pytest_mark.anyio
+def test_cancel_invoice(client: TelePaySyncClient, invoice: Invoice):
+    client.cancel_invoice(invoice.number)
+
+
+@pytest_mark.anyio
+def test_delete_invoice(client: TelePaySyncClient, invoice: Invoice):
+    client.cancel_invoice(invoice.number)
+    client.delete_invoice(invoice.number)

@@ -117,3 +117,19 @@ class TelePayAsyncClient:
         )
         validate_response(response)
         return Invoice.from_json(response.json())
+
+    async def cancel_invoice(self, number: str) -> Invoice:
+        """
+        Cancel an invoice
+        """
+        response = await self.http_client.post(f"cancelInvoice/{number}")
+        validate_response(response)
+        return Invoice.from_json(response.json())
+
+    async def delete_invoice(self, number: str) -> dict:
+        """
+        Delete an invoice
+        """
+        response = await self.http_client.post(f"deleteInvoice/{number}")
+        validate_response(response)
+        return response.json()
