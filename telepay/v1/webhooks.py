@@ -9,10 +9,10 @@ from fastapi import FastAPI, Request
 from .errors import TelePayError
 
 # events
-INVOICE_COMPLETED = 'invoice.completed'
-INVOICE_CANCELLED = 'invoice.cancelled'
-INVOICE_EXPIRED = 'invoice.expired'
-INVOICE_DELETED = 'invoice.deleted'
+INVOICE_COMPLETED = "invoice.completed"
+INVOICE_CANCELLED = "invoice.cancelled"
+INVOICE_EXPIRED = "invoice.expired"
+INVOICE_DELETED = "invoice.deleted"
 
 
 def get_signature(data, secret):
