@@ -113,10 +113,10 @@ invoices = client.get_invoices()
 
 **get_invoice**
 
-Get invoice details, by ID. [Read docs](https://telepay.readme.io/reference/getinvoice).
+Get invoice details, by its number. [Read docs](https://telepay.readme.io/reference/getinvoice).
 
 ```python
-invoices = client.get_invoice(number)
+invoice = client.get_invoice(number)
 ```
 
 **create_invoice**
@@ -140,12 +140,28 @@ invoice = client.create_invoice(
 )
 ```
 
+**cancel_invoice**
+
+Cancel invoice, by its number. [Read docs](https://telepay.readme.io/reference/cancelinvoice)
+
+```python
+invoice = client.cancel_invoice(number)
+```
+
+**delete_invoice**
+
+Delete invoice, by its number. [Read docs](https://telepay.readme.io/reference/deleteinvoice)
+
+```python
+status = client.delete_invoice(number)
+```
+
 ## Webhooks
 
 > Webhooks allows you to get updates delivered to your app server whenever we have events on our side. We will send a POST request over HTTPS, with serialized JSON data of the event, to the endpoint defined by you in the Developers > Webhooks section, in your merchant dashboard. [Read more in the docs](https://telepay.readme.io/reference/webhooks).
 
 
-The `telepay.v1.webhooks` module contains utilities to manage webhooks received from your side.
+The `telepay.v1.webhooks` module contains utilities to manage webhooks received on your side.
 
 * `get_signature(data, secret)`: Returns a webhook signature, used to verify data integrity of the webhook. This is optional, but highly recommended.
 * `TelePayWebhookListener`: A lightweight webhook listener, to receive webhooks from TelePay. You could build your own, like using django views, flask views, or any other web framework. Your choice.
@@ -182,7 +198,7 @@ Modify the listener parameters to your needs, knowing this:
 * `callback`: The callback function that is called when new webhook arrives, receiving it's HTTP headers and data.
 * `host`: The host on which the listener will be running.
 * `port`: The port on which the listener will be exposed.
-* `url`: The webhook data, which is secret and should only be known by your app and TelePay. Otherwise, it could lead to security issues.
+* `url`: The webhook url, which is secret and should only be known by your app and TelePay. Otherwise, it could lead to security issues.
 * `log_level`: The listener logger level, like `"error"`, `"info"` or `"debug"`.
 
 ## ToDo
