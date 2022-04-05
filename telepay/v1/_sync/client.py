@@ -120,6 +120,22 @@ class TelePaySyncClient:
         validate_response(response)
         return Invoice.from_json(response.json())
 
+    def cancel_invoice(self, number: str) -> Invoice:
+        """
+        Cancel an invoice
+        """
+        response = self.http_client.post(f"cancelInvoice/{number}")
+        validate_response(response)
+        return Invoice.from_json(response.json())
+
+    def delete_invoice(self, number: str) -> dict:
+        """
+        Delete an invoice
+        """
+        response = self.http_client.post(f"deleteInvoice/{number}")
+        validate_response(response)
+        return response.json()
+
     def transfer(
         self,
         asset: str,
