@@ -171,6 +171,21 @@ status = client.transfer(
 )
 ```
 
+**get_withdraw_fee**
+
+Get estimated withdraw fee, composed of blockchain fee and processing fee. [Read docs](https://telepay.readme.io/reference/getwithdrawfee)
+
+```python
+fees = client.get_withdraw_fee(
+    asset='TON',
+    blockchain='TON',
+    network='mainnet',
+    amount=1,
+    to_address='EQCKYK7bYBt1t8UmdhImrbiSzC5ijfo_H3Zc_Hk8ksRpOkOk',
+    message='test'
+)
+```
+
 ## Webhooks
 
 > Webhooks allows you to get updates delivered to your app server whenever we have events on our side. We will send a POST request over HTTPS, with serialized JSON data of the event, to the endpoint defined by you in the Developers > Webhooks section, in your merchant dashboard. [Read more in the docs](https://telepay.readme.io/reference/webhooks).
@@ -219,7 +234,6 @@ Modify the listener parameters to your needs, knowing this:
 ## ToDo
 
 * Withdraw
-* Get withdraw fee
 
 ## Contributors ✨
 
