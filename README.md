@@ -156,6 +156,21 @@ Delete invoice, by its number. [Read docs](https://telepay.readme.io/reference/d
 status = client.delete_invoice(number)
 ```
 
+**transfer**
+
+Transfer funds between internal wallets. Off-chain operation. [Read docs](https://telepay.readme.io/reference/transfer)
+
+```python
+status = client.transfer(
+    asset='TON',
+    blockchain='TON',
+    network='mainnet',
+    amount=1,
+    username='test',
+    message='Thanks'
+)
+```
+
 ## Webhooks
 
 > Webhooks allows you to get updates delivered to your app server whenever we have events on our side. We will send a POST request over HTTPS, with serialized JSON data of the event, to the endpoint defined by you in the Developers > Webhooks section, in your merchant dashboard. [Read more in the docs](https://telepay.readme.io/reference/webhooks).
@@ -203,7 +218,6 @@ Modify the listener parameters to your needs, knowing this:
 
 ## ToDo
 
-* Transfer
 * Withdraw
 * Get withdraw fee
 
