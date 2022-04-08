@@ -9,7 +9,6 @@ from ..models.account import Account
 from ..models.assets import Assets
 from ..models.invoice import Invoice, InvoiceList
 from ..models.wallets import Wallets
-from ..models.withdraw import Withdraw
 from ..utils import validate_response
 
 
@@ -162,34 +161,6 @@ class TelePayAsyncClient:
         validate_response(response)
         return response.json()
 
-    async def withdraw(
-        self,
-        asset: str,
-        blockchain: str,
-        network: str,
-        amount: float,
-        to_address: str,
-        message: str,
-    ) -> Withdraw:
-        """
-        Withdraw funds from merchant wallet to external wallet.
-        On-chain operation.
-        """
-        # response = await self.http_client.post(
-        #     "withdraw",
-        #     json={
-        #         "asset": asset,
-        #         "blockchain": blockchain,
-        #         "network": network,
-        #         "amount": amount,
-        #         "to_address": to_address,
-        #         "message": message,
-        #     },
-        # )
-        # validate_response(response)
-        # return Withdraw.from_json(response.json())
-        raise NotImplementedError()
-
     async def get_withdraw_fee(
         self,
         asset: str,
@@ -205,11 +176,38 @@ class TelePayAsyncClient:
         response = await self.http_client.post(
             "getWithdrawFee",
             json={
+                "to_address": to_address,
                 "asset": asset,
                 "blockchain": blockchain,
                 "network": network,
                 "amount": amount,
+                "message": message,
+            },
+        )
+        validate_response(response)
+        return response.json()
+
+    async def withdraw(
+        self,
+        to_address: str,
+        asset: str,
+        blockchain: str,
+        network: str,
+        amount: float,
+        message: str,
+    ) -> dict:
+        """
+        Withdraw funds from merchant wallet to external wallet.
+        On-chain operation.
+        """
+        response = await self.http_client.post(
+            "withdraw",
+            json={
                 "to_address": to_address,
+                "asset": asset,
+                "blockchain": blockchain,
+                "network": network,
+                "amount": amount,
                 "message": message,
             },
         )
