@@ -4,6 +4,8 @@ from pytest import mark as pytest_mark
 
 from telepay.v1 import Invoice, TelePayAuth, TelePayError, TelePaySyncClient
 
+from ..utils import random_text
+
 TIMEOUT = 20
 
 
@@ -66,11 +68,97 @@ def test_get_invoice(client: TelePaySyncClient, invoice: Invoice):
 
 
 @pytest_mark.anyio
+def test_get_invoice_not_found(client: TelePaySyncClient):
+    number = random_text(10)
+    try:
+        client.get_invoice(number)
+        assert False
+    except TelePayError as e:
+        assert e.status_code == 404
+        assert e.error == "not-found"
+        assert e.message == f"Invoice with number {number} does not exist"
+
+
+@pytest_mark.anyio
 def test_cancel_invoice(client: TelePaySyncClient, invoice: Invoice):
     client.cancel_invoice(invoice.number)
+
+
+@pytest_mark.anyio
+def test_cancel_invoice_not_found(client: TelePaySyncClient):
+    number = random_text(10)
+    try:
+        client.cancel_invoice(number)
+        assert False
+    except TelePayError as e:
+        assert e.status_code == 404
+        assert e.error == "not-found"
+        assert e.message == f"Invoice with number {number} does not exist"
 
 
 @pytest_mark.anyio
 def test_delete_invoice(client: TelePaySyncClient, invoice: Invoice):
     client.cancel_invoice(invoice.number)
     client.delete_invoice(invoice.number)
+
+
+@pytest_mark.anyio
+def test_delete_invoice_not_found(client: TelePaySyncClient):
+    number = random_text(10)
+    try:
+        client.delete_invoice(number)
+        assert False
+    except TelePayError as e:
+        assert e.status_code == 404
+        assert e.error == "not-found"
+        assert e.message == f"Invoice with number {number} does not exist"
+
+
+@pytest_mark.anyio
+def test_transfer_without_funds(client: TelePaySyncClient):
+    try:
+        client.transfer(
+            asset="TON",
+            blockchain="TON",
+            network="testnet",
+            amount=1,
+            username="telepay",
+        )
+    except TelePayError as e:
+        assert e.status_code == 401
+        assert e.error == "insufficient-funds"
+        assert e.message == "Insufficient funds to transfer"
+
+
+@pytest_mark.anyio
+def test_transfer_to_wrong_user(client: TelePaySyncClient):
+    username = random_text(20)
+    try:
+        client.transfer(
+            asset="TON",
+            blockchain="TON",
+            network="testnet",
+            amount=1,
+            username=username,
+        )
+    except TelePayError as e:
+        assert e.status_code == 404
+        assert e.error == "not-found"
+        assert e.message == f"User or merchant with username {username} does not exist"
+
+
+@pytest_mark.anyio
+def test_transfer_to_itself(client: TelePaySyncClient):
+    username = client.get_me().merchant["username"]
+    try:
+        client.transfer(
+            asset="TON",
+            blockchain="TON",
+            network="testnet",
+            amount=1,
+            username=username,
+        )
+    except TelePayError as e:
+        assert e.status_code == 401
+        assert e.error == "not-possible"
+        assert e.message == "Can not transfer funds from the same wallet to itself"
