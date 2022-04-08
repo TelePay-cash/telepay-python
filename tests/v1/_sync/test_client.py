@@ -167,10 +167,27 @@ def test_transfer_to_itself(client: TelePaySyncClient):
 @pytest_mark.anyio
 def test_get_withdraw_fee(client: TelePaySyncClient):
     client.get_withdraw_fee(
+        to_address="EQCKYK7bYBt1t8UmdhImrbiSzC5ijfo_H3Zc_Hk8ksRpOkOk",
         asset="TON",
         blockchain="TON",
         network="testnet",
         amount=1,
-        to_address="EQCKYK7bYBt1t8UmdhImrbiSzC5ijfo_H3Zc_Hk8ksRpOkOk",
         message="test",
     )
+
+
+@pytest_mark.anyio
+def test_withdraw(client: TelePaySyncClient):
+    try:
+        client.withdraw(
+            to_address="EQCKYK7bYBt1t8UmdhImrbiSzC5ijfo_H3Zc_Hk8ksRpOkOk",
+            asset="TON",
+            blockchain="TON",
+            network="testnet",
+            amount=1,
+            message="test",
+        )
+    except TelePayError as e:
+        assert e.status_code == 401
+        assert e.error == "insufficient-funds"
+        assert e.message == "Insufficient funds to withdraw"
