@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "telepay"
-version = "0.0.2"
+version = "0.0.3"
 description = "Python SDK for the TelePay API"
 authors = ["Carlos Lugones <contact@lugodev.com>"]
 license = "MIT"
@@ -9,7 +9,7 @@ homepage = "https://github.com/TelePay-cash/telepay-python"
 repository = "https://github.com/TelePay-cash/telepay-python"
 keywords = ["payments", "gateway", "cryptocurrencies", "TON"]
 classifiers = [
-    "Development Status :: 1 - Planning",
+    "Development Status :: 4 - Beta",
     "Environment :: Console",
     "Operating System :: OS Independent",
     "Topic :: Software Development :: Libraries :: Python Modules",

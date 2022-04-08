@@ -6,17 +6,18 @@ Official TelePay client library for the Python language, so you can easely proce
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Test](https://github.com/telepay-cash/telepay-python/workflows/CI/badge.svg)](https://github.com/telepay-cash/telepay-python/actions?query=workflow%3ACI)
-[![Version](https://img.shields.io/pypi/v/telepay?color=%2334D058&label=Version)](https://pypi.org/project/telepay)
-[![Last commit](https://img.shields.io/github/last-commit/telepay-cash/telepay-python.svg?style=flat)](https://github.com/telepay-cash/telepay-python/commits)
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/telepay-cash/telepay-python)](https://github.com/telepay-cash/telepay-python/commits)
-[![Github Stars](https://img.shields.io/github/stars/telepay-cash/telepay-python?style=flat&logo=github)](https://github.com/telepay-cash/telepay-python/stargazers)
-[![Github Forks](https://img.shields.io/github/forks/telepay-cash/telepay-python?style=flat&logo=github)](https://github.com/telepay-cash/telepay-python/network/members)
-[![Github Watchers](https://img.shields.io/github/watchers/telepay-cash/telepay-python?style=flat&logo=github)](https://github.com/telepay-cash/telepay-python)
-[![GitHub contributors](https://img.shields.io/github/contributors/telepay-cash/telepay-python?label=code%20contributors)](https://github.com/telepay-cash/telepay-python/graphs/contributors)
-[![Downloads](https://pepy.tech/badge/telepay)](https://pepy.tech/project/telepay)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
-
+[![Version](https://img.shields.io/pypi/v/telepay?color=%2334D058&label=Version&style=flat-square)](https://pypi.org/project/telepay)
+[![Last commit](https://img.shields.io/github/last-commit/telepay-cash/telepay-python.svg?style=flat-square)](https://github.com/telepay-cash/telepay-python/commits)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/telepay-cash/telepay-python?style=flat-square)](https://github.com/telepay-cash/telepay-python/commits)
+[![Github Stars](https://img.shields.io/github/stars/telepay-cash/telepay-python?style=flat-square&logo=github&)](https://github.com/telepay-cash/telepay-python/stargazers)
+[![Github Forks](https://img.shields.io/github/forks/telepay-cash/telepay-python?style=flat-square&logo=github)](https://github.com/telepay-cash/telepay-python/network/members)
+[![Github Watchers](https://img.shields.io/github/watchers/telepay-cash/telepay-python?style=flat-square&logo=github)](https://github.com/telepay-cash/telepay-python)
+[![GitHub contributors](https://img.shields.io/github/contributors/telepay-cash/telepay-python?label=code%20contributors&style=flat-square)](https://github.com/telepay-cash/telepay-python/graphs/contributors)
+[![Downloads](https://pepy.tech/badge/telepay?style=flat-square)](https://pepy.tech/project/telepay)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
+[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat-square&labelColor=ef8336)](https://pycqa.github.io/isort/)
+[![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=flat-squeare&logo=telegram&logoColor=white)](https://t.me/TelePayCash)
+[![Blog](https://img.shields.io/badge/RSS-FFA500?style=flat-square&logo=rss&logoColor=white)](https://blog.telepay.cash)
 
 ## Installation
 
@@ -81,7 +82,7 @@ Where `method` is the endpoint method.
 
 **get_me**
 
-Info about the current merchant. [Read docs](https://telepay.readme.io/reference/getme).
+Info about the current merchant. [Read docs](https://telepay.readme.io/reference/getme)
 
 ```python
 account = client.get_me()
@@ -97,7 +98,7 @@ wallets = client.get_balance()
 
 **get_assets**
 
-Get assets suported by TelePay. [Read docs](https://telepay.readme.io/reference/getassets).
+Get assets suported by TelePay. [Read docs](https://telepay.readme.io/reference/getassets)
 
 ```python
 assets = client.get_assets()
@@ -105,7 +106,7 @@ assets = client.get_assets()
 
 **get_invoices**
 
-Get your merchant invoices. [Read docs](https://telepay.readme.io/reference/getinvoices).
+Get your merchant invoices. [Read docs](https://telepay.readme.io/reference/getinvoices)
 
 ```python
 invoices = client.get_invoices()
@@ -113,7 +114,7 @@ invoices = client.get_invoices()
 
 **get_invoice**
 
-Get invoice details, by its number. [Read docs](https://telepay.readme.io/reference/getinvoice).
+Get invoice details, by its number. [Read docs](https://telepay.readme.io/reference/getinvoice)
 
 ```python
 invoice = client.get_invoice(number)
@@ -121,7 +122,7 @@ invoice = client.get_invoice(number)
 
 **create_invoice**
 
-Creates an invoice, associated to your merchant. [Read docs](https://telepay.readme.io/reference/createinvoice).
+Creates an invoice, associated to your merchant. [Read docs](https://telepay.readme.io/reference/createinvoice)
 
 ```python
 invoice = client.create_invoice(
@@ -154,6 +155,51 @@ Delete invoice, by its number. [Read docs](https://telepay.readme.io/reference/d
 
 ```python
 status = client.delete_invoice(number)
+```
+
+**transfer**
+
+Transfer funds between internal wallets. Off-chain operation. [Read docs](https://telepay.readme.io/reference/transfer)
+
+```python
+status = client.transfer(
+    asset='TON',
+    blockchain='TON',
+    network='mainnet',
+    amount=1,
+    username='test',
+    message='Thanks'
+)
+```
+
+**get_withdraw_fee**
+
+Get estimated withdraw fee, composed of blockchain fee and processing fee. [Read docs](https://telepay.readme.io/reference/getwithdrawfee)
+
+```python
+fees = client.get_withdraw_fee(
+    to_address='EQCKYK7bYBt1t8UmdhImrbiSzC5ijfo_H3Zc_Hk8ksRpOkOk',
+    asset='TON',
+    blockchain='TON',
+    network='mainnet',
+    amount=1,
+    message='test'
+)
+```
+
+**withdraw**
+
+Withdraw funds from merchant wallet to external wallet. On-chain operation. [Read docs](https://telepay.readme.io/reference/withdraw)
+
+```python
+status = client.withdraw(
+    to_address='EQCKYK7bYBt1t8UmdhImrbiSzC5ijfo_H3Zc_Hk8ksRpOkOk',
+    asset='TON',
+    blockchain='TON',
+    network='mainnet',
+    amount=1,
+    message='test'
+)
 ```
 
 ## Webhooks
@@ -201,12 +247,6 @@ Modify the listener parameters to your needs, knowing this:
 * `url`: The webhook url, which is secret and should only be known by your app and TelePay. Otherwise, it could lead to security issues.
 * `log_level`: The listener logger level, like `"error"`, `"info"` or `"debug"`.
 
-## ToDo
-
-* Transfer
-* Withdraw
-* Get withdraw fee
-
 ## Contributors ✨
 
 The library is made by ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -220,7 +260,6 @@ The library is made by ([emoji key](https://allcontributors.org/docs/en/emoji-ke
     <td align="center"><a href="http://showwcase.com/ravenclawldz"><img src="https://avatars.githubusercontent.com/u/68219934?v=4" width="100px;" alt=""/><br /><sub><b>Ravenclaw.ldz</b></sub></a><br /><a href="https://github.com/telepay-cash/telepay-python/commits?author=ravenclawldz" title="Code">💻</a></td>
   </tr>
 </table>
-
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
 
