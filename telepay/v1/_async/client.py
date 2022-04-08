@@ -142,7 +142,7 @@ class TelePayAsyncClient:
         network: str,
         amount: float,
         username: str,
-        message: str,
+        message: str = None,
     ) -> dict:
         """
         Transfer funds between internal wallets.
