@@ -190,29 +190,28 @@ class TelePaySyncClient:
         # return Withdraw.from_json(response.json())
         raise NotImplementedError()
 
-    def getWithdrawFee(
+    def get_withdraw_fee(
         self,
         asset: str,
         blockchain: str,
         network: str,
         amount: float,
         to_address: str,
-        message: str,
-    ) -> Withdraw:
+        message: str = None,
+    ) -> dict:
         """
         Get estimated withdraw fee, composed of blockchain fee and processing fee.
         """
-        # response = self.http_client.post(
-        #     "getWithdrawFee",
-        #     json={
-        #         "asset": asset,
-        #         "blockchain": blockchain,
-        #         "network": network,
-        #         "amount": amount,
-        #         "to_address": to_address,
-        #         "message": message,
-        #     },
-        # )
-        # validate_response(response)
-        # return Withdraw.from_json(response.json())
-        raise NotImplementedError()
+        response = self.http_client.post(
+            "getWithdrawFee",
+            json={
+                "asset": asset,
+                "blockchain": blockchain,
+                "network": network,
+                "amount": amount,
+                "to_address": to_address,
+                "message": message,
+            },
+        )
+        validate_response(response)
+        return response.json()

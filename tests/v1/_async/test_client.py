@@ -163,3 +163,15 @@ async def test_transfer_to_itself(client: TelePayAsyncClient):
         assert e.status_code == 401
         assert e.error == "not-possible"
         assert e.message == "Can not transfer funds from the same wallet to itself"
+
+
+@pytest_mark.anyio
+async def test_get_withdraw_fee(client: TelePayAsyncClient):
+    await client.get_withdraw_fee(
+        asset="TON",
+        blockchain="TON",
+        network="testnet",
+        amount=1,
+        to_address="EQCKYK7bYBt1t8UmdhImrbiSzC5ijfo_H3Zc_Hk8ksRpOkOk",
+        message="test",
+    )
