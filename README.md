@@ -6,17 +6,18 @@ Official TelePay client library for the Python language, so you can easely proce
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Test](https://github.com/telepay-cash/telepay-python/workflows/CI/badge.svg)](https://github.com/telepay-cash/telepay-python/actions?query=workflow%3ACI)
-[![Version](https://img.shields.io/pypi/v/telepay?color=%2334D058&label=Version)](https://pypi.org/project/telepay)
-[![Last commit](https://img.shields.io/github/last-commit/telepay-cash/telepay-python.svg?style=flat)](https://github.com/telepay-cash/telepay-python/commits)
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/telepay-cash/telepay-python)](https://github.com/telepay-cash/telepay-python/commits)
-[![Github Stars](https://img.shields.io/github/stars/telepay-cash/telepay-python?style=flat&logo=github)](https://github.com/telepay-cash/telepay-python/stargazers)
-[![Github Forks](https://img.shields.io/github/forks/telepay-cash/telepay-python?style=flat&logo=github)](https://github.com/telepay-cash/telepay-python/network/members)
-[![Github Watchers](https://img.shields.io/github/watchers/telepay-cash/telepay-python?style=flat&logo=github)](https://github.com/telepay-cash/telepay-python)
-[![GitHub contributors](https://img.shields.io/github/contributors/telepay-cash/telepay-python?label=code%20contributors)](https://github.com/telepay-cash/telepay-python/graphs/contributors)
-[![Downloads](https://pepy.tech/badge/telepay)](https://pepy.tech/project/telepay)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
-
+[![Version](https://img.shields.io/pypi/v/telepay?color=%2334D058&label=Version&style=flat-square)](https://pypi.org/project/telepay)
+[![Last commit](https://img.shields.io/github/last-commit/telepay-cash/telepay-python.svg?style=flat-square)](https://github.com/telepay-cash/telepay-python/commits)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/telepay-cash/telepay-python?style=flat-square)](https://github.com/telepay-cash/telepay-python/commits)
+[![Github Stars](https://img.shields.io/github/stars/telepay-cash/telepay-python?style=flat-square&logo=github&)](https://github.com/telepay-cash/telepay-python/stargazers)
+[![Github Forks](https://img.shields.io/github/forks/telepay-cash/telepay-python?style=flat-square&logo=github)](https://github.com/telepay-cash/telepay-python/network/members)
+[![Github Watchers](https://img.shields.io/github/watchers/telepay-cash/telepay-python?style=flat-square&logo=github)](https://github.com/telepay-cash/telepay-python)
+[![GitHub contributors](https://img.shields.io/github/contributors/telepay-cash/telepay-python?label=code%20contributors&style=flat-square)](https://github.com/telepay-cash/telepay-python/graphs/contributors)
+[![Downloads](https://pepy.tech/badge/telepay?style=flat-square)](https://pepy.tech/project/telepay)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
+[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat-square&labelColor=ef8336)](https://pycqa.github.io/isort/)
+[![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=flat-squeare&logo=telegram&logoColor=white)](https://t.me/TelePayCash)
+[![Blog](https://img.shields.io/badge/RSS-FFA500?style=flat-square&logo=rss&logoColor=white)](https://blog.telepay.cash)
 
 ## Installation
 
@@ -246,10 +247,6 @@ Modify the listener parameters to your needs, knowing this:
 * `url`: The webhook url, which is secret and should only be known by your app and TelePay. Otherwise, it could lead to security issues.
 * `log_level`: The listener logger level, like `"error"`, `"info"` or `"debug"`.
 
-## ToDo
-
-* Withdraw
-
 ## Contributors ✨
 
 The library is made by ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -263,7 +260,6 @@ The library is made by ([emoji key](https://allcontributors.org/docs/en/emoji-ke
     <td align="center"><a href="http://showwcase.com/ravenclawldz"><img src="https://avatars.githubusercontent.com/u/68219934?v=4" width="100px;" alt=""/><br /><sub><b>Ravenclaw.ldz</b></sub></a><br /><a href="https://github.com/telepay-cash/telepay-python/commits?author=ravenclawldz" title="Code">💻</a></td>
   </tr>
 </table>
-
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
 
