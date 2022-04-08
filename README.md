@@ -81,7 +81,7 @@ Where `method` is the endpoint method.
 
 **get_me**
 
-Info about the current merchant. [Read docs](https://telepay.readme.io/reference/getme).
+Info about the current merchant. [Read docs](https://telepay.readme.io/reference/getme)
 
 ```python
 account = client.get_me()
@@ -97,7 +97,7 @@ wallets = client.get_balance()
 
 **get_assets**
 
-Get assets suported by TelePay. [Read docs](https://telepay.readme.io/reference/getassets).
+Get assets suported by TelePay. [Read docs](https://telepay.readme.io/reference/getassets)
 
 ```python
 assets = client.get_assets()
@@ -105,7 +105,7 @@ assets = client.get_assets()
 
 **get_invoices**
 
-Get your merchant invoices. [Read docs](https://telepay.readme.io/reference/getinvoices).
+Get your merchant invoices. [Read docs](https://telepay.readme.io/reference/getinvoices)
 
 ```python
 invoices = client.get_invoices()
@@ -113,7 +113,7 @@ invoices = client.get_invoices()
 
 **get_invoice**
 
-Get invoice details, by its number. [Read docs](https://telepay.readme.io/reference/getinvoice).
+Get invoice details, by its number. [Read docs](https://telepay.readme.io/reference/getinvoice)
 
 ```python
 invoice = client.get_invoice(number)
@@ -121,7 +121,7 @@ invoice = client.get_invoice(number)
 
 **create_invoice**
 
-Creates an invoice, associated to your merchant. [Read docs](https://telepay.readme.io/reference/createinvoice).
+Creates an invoice, associated to your merchant. [Read docs](https://telepay.readme.io/reference/createinvoice)
 
 ```python
 invoice = client.create_invoice(
@@ -177,11 +177,26 @@ Get estimated withdraw fee, composed of blockchain fee and processing fee. [Read
 
 ```python
 fees = client.get_withdraw_fee(
+    to_address='EQCKYK7bYBt1t8UmdhImrbiSzC5ijfo_H3Zc_Hk8ksRpOkOk',
     asset='TON',
     blockchain='TON',
     network='mainnet',
     amount=1,
+    message='test'
+)
+```
+
+**withdraw**
+
+Withdraw funds from merchant wallet to external wallet. On-chain operation. [Read docs](https://telepay.readme.io/reference/withdraw)
+
+```python
+status = client.withdraw(
     to_address='EQCKYK7bYBt1t8UmdhImrbiSzC5ijfo_H3Zc_Hk8ksRpOkOk',
+    asset='TON',
+    blockchain='TON',
+    network='mainnet',
+    amount=1,
     message='test'
 )
 ```
