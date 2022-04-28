@@ -161,6 +161,26 @@ class TelePaySyncClient:
         validate_response(response)
         return response.json()
 
+    def get_withdraw_minimum(
+        self,
+        asset: str,
+        blockchain: str,
+        network: str = None,
+    ) -> dict:
+        """
+        Get minimum withdraw amount.
+        """
+        response = self.http_client.post(
+            "getWithdrawMinimum",
+            json={
+                "asset": asset,
+                "blockchain": blockchain,
+                "network": network,
+            },
+        )
+        validate_response(response)
+        return response.json()
+
     def get_withdraw_fee(
         self,
         to_address: str,
