@@ -166,6 +166,15 @@ async def test_transfer_to_itself(client: TelePayAsyncClient):
 
 
 @pytest_mark.anyio
+async def test_withdraw_minimum(client: TelePayAsyncClient):
+    await client.get_withdraw_minimum(
+        asset="TON",
+        blockchain="TON",
+        network="testnet",
+    )
+
+
+@pytest_mark.anyio
 async def test_get_withdraw_fee(client: TelePayAsyncClient):
     await client.get_withdraw_fee(
         to_address="EQCKYK7bYBt1t8UmdhImrbiSzC5ijfo_H3Zc_Hk8ksRpOkOk",
