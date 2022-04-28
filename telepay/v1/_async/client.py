@@ -161,6 +161,26 @@ class TelePayAsyncClient:
         validate_response(response)
         return response.json()
 
+    async def get_withdraw_minimum(
+        self,
+        asset: str,
+        blockchain: str,
+        network: str = None,
+    ) -> dict:
+        """
+        Get minimum withdraw amount.
+        """
+        response = await self.http_client.post(
+            "getWithdrawMinimum",
+            json={
+                "asset": asset,
+                "blockchain": blockchain,
+                "network": network,
+            },
+        )
+        validate_response(response)
+        return response.json()
+
     async def get_withdraw_fee(
         self,
         asset: str,
