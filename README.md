@@ -172,6 +172,18 @@ status = client.transfer(
 )
 ```
 
+**get_withdraw_minimum**
+
+Obtains minimum amount required to withdraw funds on a given asset. [Read docs](https://telepay.readme.io/reference/getwithdrawminimum)
+
+```python
+minimum = client.get_withdraw_minimum(
+    asset='TON',
+    blockchain='TON',
+    network='mainnet',
+)
+```
+
 **get_withdraw_fee**
 
 Get estimated withdraw fee, composed of blockchain fee and processing fee. [Read docs](https://telepay.readme.io/reference/getwithdrawfee)
