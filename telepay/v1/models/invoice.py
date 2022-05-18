@@ -19,16 +19,20 @@ class Invoice:
     number: str
     status: str
     metadata: str
-    hidden_message: str
 
     success_url: str
     cancel_url: str
-    explorer_url: str
-    checkout_url: str
 
     created_at: datetime
     updated_at: datetime
     expires_at: datetime
+
+    # after created
+    checkout_url: str
+    onchain_url: str
+
+    # after payment completed
+    explorer_url: str
 
     def __post_init__(self):
         self.asset = str(self.asset)
@@ -39,7 +43,6 @@ class Invoice:
         self.success_url = str(self.success_url)
         self.cancel_url = str(self.cancel_url)
         self.status = str(self.status)
-        self.hidden_message = str(self.hidden_message)
         self.number = str(self.number)
         self.metadata = str(self.metadata)
         self.created_at = datetime.strptime(self.created_at, FORMAT)
