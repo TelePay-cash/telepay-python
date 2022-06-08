@@ -268,8 +268,30 @@ The library is made by ([emoji key](https://allcontributors.org/docs/en/emoji-ke
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://lugodev.com"><img src="https://avatars.githubusercontent.com/u/18733370?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Carlos Lugones</b></sub></a><br /><a href="https://github.com/telepay-cash/telepay-python/commits?author=lugodev" title="Code">💻</a></td>
-    <td align="center"><a href="http://showwcase.com/ravenclawldz"><img src="https://avatars.githubusercontent.com/u/68219934?v=4" width="100px;" alt=""/><br /><sub><b>Ravenclaw.ldz</b></sub></a><br /><a href="https://github.com/telepay-cash/telepay-python/commits?author=ravenclawldz" title="Code">💻</a></td>
+    <td align="center">
+        <a href="https://lugodev.com">
+            <img src="https://avatars.githubusercontent.com/u/18733370?v=4?s=100" width="100px;" alt=""/><br />
+            <sub><b>Carlos Lugones</b></sub>
+        </a>
+        <br />
+        <a href="https://github.com/telepay-cash/telepay-python/commits?author=lugodev" title="Code">💻</a>
+    </td>
+    <td align="center">
+        <a href="http://showwcase.com/ravenclawldz">
+            <img src="https://avatars.githubusercontent.com/u/68219934?v=4" width="100px;" alt=""/><br />
+            <sub><b>Ravenclaw.ldz</b></sub>
+        </a>
+        <br />
+        <a href="https://github.com/telepay-cash/telepay-python/commits?author=ravenclawldz" title="Code">💻</a>
+    </td>
+    <td align="center">
+        <a href="http://showwcase.com/ragnarok22">
+            <img src="https://avatars.githubusercontent.com/u/8838803?v=4" width="100px;" alt=""/><br />
+            <sub><b>Reinier Hernández</b></sub>
+        </a>
+        <br />
+        <a href="https://github.com/telepay-cash/telepay-python/commits?author=ragnarok22" title="Code">💻</a>
+    </td>
   </tr>
 </table>
 <!-- markdownlint-restore -->
