@@ -50,6 +50,7 @@ async def test_get_me(client: TelePayAsyncClient):
 @pytest_mark.anyio
 async def test_get_balance(client: TelePayAsyncClient):
     await client.get_balance()
+    await client.get_balance(asset="TON", blockchain="TON", network="testnet")
 
 
 @pytest_mark.anyio
