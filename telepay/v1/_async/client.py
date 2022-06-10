@@ -8,7 +8,7 @@ from ..http_clients import AsyncClient
 from ..models.account import Account
 from ..models.assets import Assets
 from ..models.invoice import Invoice, InvoiceList
-from ..models.wallets import Wallets
+from ..models.wallets import Wallet, Wallets
 from ..utils import validate_response
 
 
@@ -54,13 +54,21 @@ class TelePayAsyncClient:
         validate_response(response)
         return Account.from_json(response.json())
 
-    async def get_balance(self) -> Wallets:
+    async def get_balance(self, asset=None, blockchain=None, network=None) -> Wallets:
         """
         Get your merchant wallet assets with corresponding balance
         """
-        response = await self.http_client.get("getBalance")
-        validate_response(response)
-        return Wallets.from_json(response.json())
+        if asset and blockchain and network:
+            response = await self.http_client.post(
+                "getBalance",
+                json={"asset": asset, "blockchain": blockchain, "network": network},
+            )
+            validate_response(response)
+            return Wallet.from_json(response.json())
+        else:
+            response = await self.http_client.get("getBalance")
+            validate_response(response)
+            return Wallets.from_json(response.json())
 
     async def get_assets(self) -> Assets:
         """
