@@ -17,6 +17,7 @@ class TelePayAuth:
             self.secret_api_key = secret_api_key
         else:
             self.secret_api_key = environ["TELEPAY_SECRET_API_KEY"]
+        self.__post_init__()
 
     def __post_init__(self):
         if not self.secret_api_key:
