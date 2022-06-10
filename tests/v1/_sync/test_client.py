@@ -50,6 +50,7 @@ def test_get_me(client: TelePaySyncClient):
 @pytest_mark.anyio
 def test_get_balance(client: TelePaySyncClient):
     client.get_balance()
+    client.get_balance(asset="TON", blockchain="TON", network="testnet")
 
 
 @pytest_mark.anyio
