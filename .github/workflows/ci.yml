@@ -15,8 +15,6 @@ jobs:
         ref: ${{ github.event.pull_request.head.sha }}
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
     - name: Set up Poetry 2.1.0
       uses: abatilo/actions-poetry@v2.1.0
       with:
