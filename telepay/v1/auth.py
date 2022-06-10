@@ -12,6 +12,12 @@ load_dotenv()
 class TelePayAuth:
     secret_api_key: str = field(default=environ["TELEPAY_SECRET_API_KEY"])
 
+    def __init__(self, secret_api_key=None):
+        if secret_api_key:
+            self.secret_api_key = secret_api_key
+        else:
+            self.secret_api_key = environ["TELEPAY_SECRET_API_KEY"]
+
     def __post_init__(self):
         if not self.secret_api_key:
             raise TelePayError(0, "TELEPAY_SECRET_API_KEY is not setted")
