@@ -1,3 +1,5 @@
+import os
+
 from httpx import Timeout
 from pytest import fixture
 from pytest import mark as pytest_mark
@@ -40,6 +42,14 @@ async def test_error(client: TelePayAsyncClient):
         assert False
     except TelePayError:
         assert True
+
+
+@pytest_mark.anyio
+async def test_client_with_context():
+    api_key = os.environ["TELEPAY_SECRET_API_KEY"]
+    # TODO: add more tests and probate the client api is the same
+    async with TelePayAsyncClient(secret_api_key=api_key) as client:
+        assert client is not None
 
 
 @pytest_mark.anyio
