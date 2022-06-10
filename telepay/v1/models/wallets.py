@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, List
 
 from ..utils import parse_json
 
@@ -18,7 +18,7 @@ class Wallet:
 
 @dataclass
 class Wallets:
-    wallets: list[Wallet]
+    wallets: List[Wallet]
 
     def __post_init__(self):
         pass
