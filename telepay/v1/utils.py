@@ -11,7 +11,7 @@ T = TypeVar("T")
 def validate_response(response: Response) -> None:
     if response.status_code < 200 or response.status_code >= 300:
         error_data = response.json()
-        print('error:', error_data)
+        print("error:", error_data)
         error = error_data.pop("error", None)
         message = error_data.pop("message", None)
         raise TelePayError(
