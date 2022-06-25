@@ -4,7 +4,7 @@ from httpx import Timeout
 from pytest import fixture
 from pytest import mark as pytest_mark
 
-from telepay.v1 import Invoice, TelePayAuth, TelePayError, TelePaySyncClient
+from telepay.v1 import Invoice, TelePayAuth, TelePayError, TelePaySyncClient, Webhook
 
 from ..utils import ERRORS, random_text
 
@@ -32,6 +32,14 @@ def create_invoice(client: TelePaySyncClient):
         expires_at=1,
     )
     yield invoice
+
+
+@fixture(name="webhook")
+def create_webhook(client: TelePaySyncClient):
+    webhook = client.create_webhook(
+        url="https://example.com", secret="hello", events=["all"], active=False
+    )
+    yield webhook
 
 
 @pytest_mark.anyio
@@ -301,3 +309,36 @@ def test_withdraw(client: TelePaySyncClient):
         elif e.status_code == 403:
             assert e.error == "forbidden"
             assert e.message == ERRORS["forbidden"]
+
+
+@pytest_mark.anyio
+def test_update_webhook(client: TelePaySyncClient, webhook: Webhook):
+    try:
+        client.update_webhook(
+            id=webhook.id,
+            url="https://example.com",
+            secret="hello",
+            events=["invoice.completed"],
+            active=False,
+        )
+        client.delete_webhook(id=webhook.id)
+    except TelePayError as e:
+        if e.status_code == 403:
+            assert e.error == "forbidden"
+            assert e.message == ERRORS["forbidden"]
+        if e.status_code == 404:
+            assert e.error == "webhook.not-found"
+            assert e.message == ERRORS["webhook.not-found"]
+
+
+@pytest_mark.anyio
+def test_delete_webhook(client: TelePaySyncClient, webhook: Webhook):
+    try:
+        client.delete_webhook(id=webhook.id)
+    except TelePayError as e:
+        if e.status_code == 403:
+            assert e.error == "forbidden"
+            assert e.message == ERRORS["forbidden"]
+        if e.status_code == 404:
+            assert e.error == "webhook.not-found"
+            assert e.message == ERRORS["webhook.not-found"]

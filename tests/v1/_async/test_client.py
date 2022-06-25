@@ -4,7 +4,7 @@ from httpx import Timeout
 from pytest import fixture
 from pytest import mark as pytest_mark
 
-from telepay.v1 import Invoice, TelePayAsyncClient, TelePayAuth, TelePayError
+from telepay.v1 import Invoice, TelePayAsyncClient, TelePayAuth, TelePayError, Webhook
 
 from ..utils import ERRORS, random_text
 
@@ -32,6 +32,14 @@ async def create_invoice(client: TelePayAsyncClient):
         expires_at=1,
     )
     yield invoice
+
+
+@fixture(name="webhook")
+async def create_webhook(client: TelePayAsyncClient):
+    webhook = await client.create_webhook(
+        url="https://example.com", secret="hello", events=["all"], active=False
+    )
+    yield webhook
 
 
 @pytest_mark.anyio
@@ -302,3 +310,36 @@ async def test_withdraw(client: TelePayAsyncClient):
         elif e.status_code == 403:
             assert e.error == "forbidden"
             assert e.message == ERRORS["forbidden"]
+
+
+@pytest_mark.anyio
+async def test_update_webhook(client: TelePayAsyncClient, webhook: Webhook):
+    try:
+        await client.update_webhook(
+            id=webhook.id,
+            url="https://example.com",
+            secret="hello",
+            events=["invoice.completed"],
+            active=False,
+        )
+        await client.delete_webhook(id=webhook.id)
+    except TelePayError as e:
+        if e.status_code == 403:
+            assert e.error == "forbidden"
+            assert e.message == ERRORS["forbidden"]
+        if e.status_code == 404:
+            assert e.error == "webhook.not-found"
+            assert e.message == ERRORS["webhook.not-found"]
+
+
+@pytest_mark.anyio
+async def test_delete_webhook(client: TelePayAsyncClient, webhook: Webhook):
+    try:
+        await client.delete_webhook(id=webhook.id)
+    except TelePayError as e:
+        if e.status_code == 403:
+            assert e.error == "forbidden"
+            assert e.message == ERRORS["forbidden"]
+        if e.status_code == 404:
+            assert e.error == "webhook.not-found"
+            assert e.message == ERRORS["webhook.not-found"]
