@@ -6,7 +6,7 @@ from httpx._types import TimeoutTypes
 from ..auth import TelePayAuth
 from ..http_clients import AsyncClient
 from ..models.account import Account
-from ..models.assets import Assets
+from ..models.assets import Asset, Assets
 from ..models.invoice import Invoice, InvoiceList
 from ..models.wallets import Wallet, Wallets
 from ..utils import validate_response
@@ -69,6 +69,21 @@ class TelePayAsyncClient:
             response = await self.http_client.get("getBalance")
             validate_response(response)
             return Wallets.from_json(response.json())
+
+    async def get_asset(self, asset: str, blockchain: str) -> Asset:
+        """
+        Get asset details
+        """
+        response = await self.http_client.request(
+            method="GET",
+            url="getAsset",
+            json={
+                "asset": asset,
+                "blockchain": blockchain,
+            },
+        )
+        validate_response(response)
+        return Asset.from_json(response.json())
 
     async def get_assets(self) -> Assets:
         """
