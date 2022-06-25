@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 
-from httpx._config import DEFAULT_TIMEOUT_CONFIG
+from httpx._config import Timeout
 from httpx._types import TimeoutTypes
 
 from ..auth import TelePayAuth
@@ -9,6 +9,7 @@ from ..models.account import Account
 from ..models.assets import Asset, Assets
 from ..models.invoice import Invoice, InvoiceList
 from ..models.wallets import Wallet, Wallets
+from ..models.webhooks import Webhook, Webhooks
 from ..utils import validate_response
 
 
@@ -20,9 +21,9 @@ class TelePayAsyncClient:
     Any requests without this authentication key will result in error 403.
     """
 
-    timeout: TimeoutTypes = field(default=DEFAULT_TIMEOUT_CONFIG)
+    timeout: TimeoutTypes = field(default=Timeout(60))
 
-    def __init__(self, secret_api_key, timeout=DEFAULT_TIMEOUT_CONFIG) -> None:
+    def __init__(self, secret_api_key, timeout=Timeout(60)) -> None:
         self.base_url = "https://api.telepay.cash/rest/"
         self.timeout = timeout
         self.http_client = AsyncClient(
@@ -41,9 +42,7 @@ class TelePayAsyncClient:
         await self.http_client.aclose()
 
     @staticmethod
-    def from_auth(
-        auth: TelePayAuth, timeout=DEFAULT_TIMEOUT_CONFIG
-    ) -> "TelePayAsyncClient":
+    def from_auth(auth: TelePayAuth, timeout=Timeout(60)) -> "TelePayAsyncClient":
         return TelePayAsyncClient(auth.secret_api_key, timeout=timeout)
 
     async def get_me(self) -> Account:
@@ -256,3 +255,79 @@ class TelePayAsyncClient:
         )
         validate_response(response)
         return response.json()
+
+    async def create_webhook(
+        self, url: str, secret: str, events: list, active: bool
+    ) -> Webhook:
+        """
+        Create a webhook
+        """
+        response = await self.http_client.post(
+            "createWebhook",
+            json={
+                "url": url,
+                "secret": secret,
+                "events": events,
+                "active": active,
+            },
+        )
+        validate_response(response)
+        return Webhook.from_json(response.json())
+
+    async def update_webhook(
+        self, id: str, url: str, secret: str, events: list, active: bool
+    ) -> Webhook:
+        """
+        Update a webhook
+        """
+        response = await self.http_client.post(
+            f"updateWebhook/{id}",
+            json={
+                "url": url,
+                "secret": secret,
+                "events": events,
+                "active": active,
+            },
+        )
+        validate_response(response)
+        return Webhook.from_json(response.json())
+
+    async def activate_webhook(self, id: str) -> Webhook:
+        """
+        Activate a webhook
+        """
+        response = await self.http_client.post(f"activateWebhook/{id}")
+        validate_response(response)
+        return Webhook.from_json(response.json())
+
+    async def deactivate_webhook(self, id: str) -> Webhook:
+        """
+        Deactivate a webhook
+        """
+        response = await self.http_client.post(f"deactivateWebhook/{id}")
+        validate_response(response)
+        return Webhook.from_json(response.json())
+
+    async def delete_webhook(self, id: str) -> dict:
+        """
+        Delete a webhook
+        """
+        response = await self.http_client.post(f"deleteWebhook/{id}")
+        validate_response(response)
+        return response.json()
+
+    async def get_webhook(self, id: str) -> Webhook:
+        """
+        Get webhook
+        """
+        response = await self.http_client.get(f"getWebhook/{id}")
+        validate_response(response)
+        return Webhook.from_json(response.json())
+
+    async def get_webhooks(self) -> Webhooks:
+        """
+        Get webhooks
+        """
+        response = await self.http_client.get("getWebhooks")
+        validate_response(response)
+        return Webhooks.from_json(response.json())

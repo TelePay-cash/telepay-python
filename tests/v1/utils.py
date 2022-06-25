@@ -9,6 +9,7 @@ ERRORS = {
     "transfer.insufficient-funds": "Transfer failed. Insufficient funds.",
     "transfer.not-possible": "Transfer failed. Not possible to perform.",
     "withdrawal.insufficient-funds": "Withdrawal failed. Insufficient funds.",
+    "webhook.not-found": "Webhook not found.",
 }
 
 
