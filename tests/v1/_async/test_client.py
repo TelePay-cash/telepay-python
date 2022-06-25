@@ -333,9 +333,64 @@ async def test_update_webhook(client: TelePayAsyncClient, webhook: Webhook):
 
 
 @pytest_mark.anyio
+async def test_activate_webhook(client: TelePayAsyncClient, webhook: Webhook):
+    try:
+        await client.activate_webhook(id=webhook.id)
+        await client.delete_webhook(id=webhook.id)
+    except TelePayError as e:
+        if e.status_code == 403:
+            assert e.error == "forbidden"
+            assert e.message == ERRORS["forbidden"]
+        if e.status_code == 404:
+            assert e.error == "webhook.not-found"
+            assert e.message == ERRORS["webhook.not-found"]
+
+
+@pytest_mark.anyio
+async def test_deactivate_webhook(client: TelePayAsyncClient, webhook: Webhook):
+    try:
+        await client.deactivate_webhook(id=webhook.id)
+        await client.delete_webhook(id=webhook.id)
+    except TelePayError as e:
+        if e.status_code == 403:
+            assert e.error == "forbidden"
+            assert e.message == ERRORS["forbidden"]
+        if e.status_code == 404:
+            assert e.error == "webhook.not-found"
+            assert e.message == ERRORS["webhook.not-found"]
+
+
+@pytest_mark.anyio
 async def test_delete_webhook(client: TelePayAsyncClient, webhook: Webhook):
     try:
         await client.delete_webhook(id=webhook.id)
+    except TelePayError as e:
+        if e.status_code == 403:
+            assert e.error == "forbidden"
+            assert e.message == ERRORS["forbidden"]
+        if e.status_code == 404:
+            assert e.error == "webhook.not-found"
+            assert e.message == ERRORS["webhook.not-found"]
+
+
+@pytest_mark.anyio
+async def test_get_webhook(client: TelePayAsyncClient, webhook: Webhook):
+    try:
+        await client.get_webhook(id=webhook.id)
+        await client.delete_webhook(id=webhook.id)
+    except TelePayError as e:
+        if e.status_code == 403:
+            assert e.error == "forbidden"
+            assert e.message == ERRORS["forbidden"]
+        if e.status_code == 404:
+            assert e.error == "webhook.not-found"
+            assert e.message == ERRORS["webhook.not-found"]
+
+
+@pytest_mark.anyio
+async def test_get_webhooks(client: TelePayAsyncClient):
+    try:
+        await client.get_webhooks()
     except TelePayError as e:
         if e.status_code == 403:
             assert e.error == "forbidden"
