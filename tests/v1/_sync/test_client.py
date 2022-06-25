@@ -8,7 +8,7 @@ from telepay.v1 import Invoice, TelePayAuth, TelePayError, TelePaySyncClient, We
 
 from ..utils import ERRORS, random_text
 
-TIMEOUT = 20
+TIMEOUT = 60
 
 
 @fixture(name="client")
