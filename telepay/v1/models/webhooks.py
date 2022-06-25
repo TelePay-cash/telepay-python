@@ -22,7 +22,7 @@ class Webhooks:
     webhooks: List[Webhook]
 
     def __post_init__(self):
-        pass
+        self.webhooks = [Webhook.from_json(webhook) for webhook in self.webhooks]
 
     @classmethod
     def from_json(cls, json: Any) -> "Webhooks":
