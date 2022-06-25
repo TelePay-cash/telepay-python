@@ -96,6 +96,22 @@ Get your merchant wallet assets with corresponding balance. [Read docs](https://
 wallets = client.get_balance()
 ```
 
+Or get a specific wallet balance by specifying the `asset`, `blockchain` and `network`.
+
+```python
+wallet = client.get_balance(asset='TON', blockchain='TON', network='network')
+```
+
+### Assets
+
+**get_asset**
+
+Get asset details. [Read docs](https://telepay.readme.io/reference/getasset)
+
+```python
+asset = client.get_asset(asset='TON', blockchain='TON')
+```
+
 **get_assets**
 
 Get assets suported by TelePay. [Read docs](https://telepay.readme.io/reference/getassets)
@@ -104,13 +120,7 @@ Get assets suported by TelePay. [Read docs](https://telepay.readme.io/reference/
 assets = client.get_assets()
 ```
 
-**get_invoices**
-
-Get your merchant invoices. [Read docs](https://telepay.readme.io/reference/getinvoices)
-
-```python
-invoices = client.get_invoices()
-```
+### Invoices
 
 **get_invoice**
 
@@ -118,6 +128,14 @@ Get invoice details, by its number. [Read docs](https://telepay.readme.io/refere
 
 ```python
 invoice = client.get_invoice(number)
+```
+
+**get_invoices**
+
+Get your merchant invoices. [Read docs](https://telepay.readme.io/reference/getinvoices)
+
+```python
+invoices = client.get_invoices()
 ```
 
 **create_invoice**
@@ -157,6 +175,8 @@ Delete invoice, by its number. [Read docs](https://telepay.readme.io/reference/d
 status = client.delete_invoice(number)
 ```
 
+### Transfers
+
 **transfer**
 
 Transfer funds between internal wallets. Off-chain operation. [Read docs](https://telepay.readme.io/reference/transfer)
@@ -171,6 +191,8 @@ status = client.transfer(
     message='Thanks'
 )
 ```
+
+### Withdrawals
 
 **get_withdraw_minimum**
 
@@ -214,10 +236,77 @@ status = client.withdraw(
 )
 ```
 
-## Webhooks
+### Webhooks
 
 > Webhooks allows you to get updates delivered to your app server whenever we have events on our side. We will send a POST request over HTTPS, with serialized JSON data of the event, to the endpoint defined by you in the Developers > Webhooks section, in your merchant dashboard. [Read more in the docs](https://telepay.readme.io/reference/webhooks).
 
+**get_webhook**
+
+Get webhook details, by its id. [Read docs](https://telepay.readme.io/reference/getwebhook)
+
+```python
+client.get_webhook(id)
+```
+
+**get_webhooks**
+
+Get your merchant webhooks. [Read docs](https://telepay.readme.io/reference/getwebhooks)
+
+```python
+webhooks = client.get_webhooks()
+```
+
+**create_webhook**
+
+Create a webhook. [Read docs](https://telepay.readme.io/reference/createwebhook)
+
+```python
+webhook = client.create_webhook(
+    url='https://example.com',
+    secret='hello',
+    events=['all'],
+    active=True
+)
+```
+
+**update_webhook**
+
+Update a webhook. [Read docs](https://telepay.readme.io/reference/updatewebhook)
+
+```python
+webhook = client.update_webhook(
+    url='https://example.com',
+    secret='hello',
+    events=['invoice.completed'],
+    active=True
+)
+```
+
+**activate_webhook**
+
+Activate a webhook, by its id. [Read docs](https://telepay.readme.io/reference/activatewebhook)
+
+```python
+client.activate_webhook(id)
+```
+
+**deactivate_webhook**
+
+Deactivate a webhook, by its id. [Read docs](https://telepay.readme.io/reference/deactivatewebhook)
+
+```python
+client.deactivate_webhook(id)
+```
+
+**delete_webhook**
+
+Delete a webhook, by its id. [Read docs](https://telepay.readme.io/reference/deletewebhook)
+
+```python
+client.deactivate_webhook(id)
+```
+
+### Webhook utils
 
 The `telepay.v1.webhooks` module contains utilities to manage webhooks received on your side.
 
@@ -229,11 +318,9 @@ The `telepay.v1.webhooks` module contains utilities to manage webhooks received 
 ```python
 from telepay.v1.webhooks import TelePayWebhookListener
 
-
 def callback(headers, data):
     print("Executing callback...")
     # do your stuff here
-
 
 listener = TelePayWebhookListener(
     secret="SECRET",
