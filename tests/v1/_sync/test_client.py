@@ -38,7 +38,10 @@ def create_invoice(client: TelePaySyncClient):
 @fixture(name="webhook")
 def create_webhook(client: TelePaySyncClient):
     webhook = client.create_webhook(
-        url=f"https://{uuid.uuid4().hex}.com", secret="hello", events=["all"], active=False
+        url=f"https://{uuid.uuid4().hex}.com",
+        secret="hello",
+        events=["all"],
+        active=False,
     )
     yield webhook
 

@@ -38,7 +38,10 @@ async def create_invoice(client: TelePayAsyncClient):
 @fixture(name="webhook")
 async def create_webhook(client: TelePayAsyncClient):
     webhook = await client.create_webhook(
-        url=f"https://{uuid.uuid4().hex}.com", secret="hello", events=["all"], active=False
+        url=f"https://{uuid.uuid4().hex}.com",
+        secret="hello",
+        events=["all"],
+        active=False,
     )
     yield webhook
 
