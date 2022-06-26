@@ -1,4 +1,5 @@
 import os
+import uuid
 
 from httpx import Timeout
 from pytest import fixture
@@ -37,7 +38,7 @@ def create_invoice(client: TelePaySyncClient):
 @fixture(name="webhook")
 def create_webhook(client: TelePaySyncClient):
     webhook = client.create_webhook(
-        url="https://example.com", secret="hello", events=["all"], active=False
+        url=f"https://{uuid.uuid4().hex}.com", secret="hello", events=["all"], active=False
     )
     yield webhook
 
