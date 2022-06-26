@@ -356,12 +356,12 @@ The library is made by ([emoji key](https://allcontributors.org/docs/en/emoji-ke
 <table>
   <tr>
     <td align="center">
-        <a href="https://lugodev.com">
+        <a href="https://carloslugones.com">
             <img src="https://avatars.githubusercontent.com/u/18733370?v=4?s=100" width="100px;" alt=""/><br />
             <sub><b>Carlos Lugones</b></sub>
         </a>
         <br />
-        <a href="https://github.com/telepay-cash/telepay-python/commits?author=lugodev" title="Code">💻</a>
+        <a href="https://github.com/telepay-cash/telepay-python/commits?author=CarlosLugones" title="Code">💻</a>
     </td>
     <td align="center">
         <a href="http://showwcase.com/ravenclawldz">
