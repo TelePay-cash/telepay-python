@@ -54,7 +54,7 @@ class TelePayWebhookListener:
                 raise TelePayError(
                     message="Invalid signature",
                     status_code=400,
-                    error='invalid_signature',
+                    error="invalid_signature",
                 )
 
             self.callback(request.headers, data)
