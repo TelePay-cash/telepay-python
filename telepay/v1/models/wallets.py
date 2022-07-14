@@ -1,7 +1,10 @@
+import logging
 from dataclasses import dataclass
 from typing import Any, List
 
 from ..utils import parse_json
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -13,6 +16,8 @@ class Wallet:
 
     @classmethod
     def from_json(cls, json: Any) -> "Wallet":
+        logger.debug(f"Parsing wallet from JSON: {json}")
+
         return parse_json(cls, **json)
 
 
@@ -25,4 +30,6 @@ class Wallets:
 
     @classmethod
     def from_json(cls, json: Any) -> "Wallets":
+        logger.debug(f"Parsing wallets from JSON: {json}")
+
         return parse_json(cls, **json)

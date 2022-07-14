@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
@@ -6,10 +7,11 @@ from ..utils import parse_json
 
 FORMAT = "%Y-%m-%dT%H:%M:%S.%fZ"
 
+logger = logging.getLogger(__name__)
+
 
 @dataclass
 class Invoice:
-
     asset: str
     blockchain: str
     network: str
@@ -53,12 +55,13 @@ class Invoice:
 
     @classmethod
     def from_json(cls, json: Any) -> "Invoice":
+        logger.debug(f"Parsing Invoice from JSON: {json}")
+
         return parse_json(cls, **json)
 
 
 @dataclass
 class InvoiceList:
-
     invoices: list
 
     def __post_init__(self):
@@ -66,4 +69,6 @@ class InvoiceList:
 
     @classmethod
     def from_json(cls, json: Any) -> "InvoiceList":
+        logger.debug(f"Parsing InvoiceList from JSON: {json}")
+
         return parse_json(cls, **json)
