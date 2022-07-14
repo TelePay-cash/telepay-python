@@ -1,5 +1,6 @@
 import hashlib
 import json
+import logging
 from dataclasses import dataclass
 
 import uvicorn
@@ -7,6 +8,8 @@ from colorama import Fore, Style
 from fastapi import FastAPI, Request
 
 from .errors import TelePayError
+
+logger = logging.getLogger(__name__)
 
 # events
 INVOICE_COMPLETED = "invoice.completed"
@@ -39,7 +42,6 @@ class TelePayWebhookListener:
     def __post_init__(self):
         @self.app.post(self.url)
         async def listen_webhook(request: Request):
-
             data = str(json.loads(await request.json()))
 
             request_signature = request.headers["Webhook-Signature"]
@@ -47,10 +49,12 @@ class TelePayWebhookListener:
             signature = get_signature(str(data), self.secret)
 
             if signature != request_signature:
+                logger.debug(f"Signature mismatch: {signature} != {request_signature}")
+
                 raise TelePayError(
                     message="Invalid signature",
                     status_code=400,
-                    # code='invalid_signature',
+                    error='invalid_signature',
                 )
 
             self.callback(request.headers, data)
@@ -59,6 +63,8 @@ class TelePayWebhookListener:
 
     def listen(self):
         url = f"http://{self.host}:{self.port}{self.url}"
+        logger.debug(f"Listening on {url}")
+
         print(
             Fore.CYAN
             + r"""

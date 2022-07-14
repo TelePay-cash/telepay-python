@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass, field
 
 from httpx._config import Timeout
@@ -11,6 +12,8 @@ from ..models.invoice import Invoice, InvoiceList
 from ..models.wallets import Wallet, Wallets
 from ..models.webhooks import Webhook, Webhooks
 from ..utils import validate_response
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -50,6 +53,8 @@ class TelePaySyncClient:
         Info about the current account
         """
         response = self.http_client.get("getMe")
+        logger.debug(f"response: {response.text}")
+
         validate_response(response)
         return Account.from_json(response.json())
 
@@ -62,10 +67,15 @@ class TelePaySyncClient:
                 "getBalance",
                 json={"asset": asset, "blockchain": blockchain, "network": network},
             )
+            logger.debug(f"response: {response.text}")
+
             validate_response(response)
+            # FIXME: return Wallet when should be Wallets
             return Wallet.from_json(response.json())
         else:
             response = self.http_client.get("getBalance")
+            logger.debug(f"response: {response.text}")
+
             validate_response(response)
             return Wallets.from_json(response.json())
 
@@ -81,6 +91,8 @@ class TelePaySyncClient:
                 "blockchain": blockchain,
             },
         )
+        logger.debug(f"response: {response.text}")
+
         validate_response(response)
         return Asset.from_json(response.json())
 
@@ -89,6 +101,8 @@ class TelePaySyncClient:
         Get assets suported by TelePay
         """
         response = self.http_client.get("getAssets")
+        logger.debug(f"response: {response.text}")
+
         validate_response(response)
         return Assets.from_json(response.json())
 
@@ -97,6 +111,8 @@ class TelePaySyncClient:
         Get your merchant invoices
         """
         response = self.http_client.get("getInvoices")
+        logger.debug(f"response: {response.text}")
+
         validate_response(response)
         return InvoiceList.from_json(response.json())
 
@@ -105,6 +121,8 @@ class TelePaySyncClient:
         Get invoice details, by ID
         """
         response = self.http_client.get(f"getInvoice/{number}")
+        logger.debug(f"response: {response.text}")
+
         validate_response(response)
         return Invoice.from_json(response.json())
 
@@ -137,6 +155,8 @@ class TelePaySyncClient:
                 "expires_at": expires_at,
             },
         )
+        logger.debug(f"response: {response.text}")
+
         validate_response(response)
         return Invoice.from_json(response.json())
 
@@ -145,6 +165,8 @@ class TelePaySyncClient:
         Cancel an invoice
         """
         response = self.http_client.post(f"cancelInvoice/{number}")
+        logger.debug(f"response: {response.text}")
+
         validate_response(response)
         return Invoice.from_json(response.json())
 
@@ -153,6 +175,8 @@ class TelePaySyncClient:
         Delete an invoice
         """
         response = self.http_client.post(f"deleteInvoice/{number}")
+        logger.debug(f"response: {response.text}")
+
         validate_response(response)
         return response.json()
 
@@ -180,6 +204,8 @@ class TelePaySyncClient:
                 "message": message,
             },
         )
+        logger.debug(f"response: {response.text}")
+
         validate_response(response)
         return response.json()
 
@@ -200,6 +226,8 @@ class TelePaySyncClient:
                 "network": network,
             },
         )
+        logger.debug(f"response: {response.text}")
+
         validate_response(response)
         return response.json()
 
@@ -226,6 +254,8 @@ class TelePaySyncClient:
                 "message": message,
             },
         )
+        logger.debug(f"response: {response.text}")
+
         validate_response(response)
         return response.json()
 
@@ -253,6 +283,8 @@ class TelePaySyncClient:
                 "message": message,
             },
         )
+        logger.debug(f"response: {response.text}")
+
         validate_response(response)
         return response.json()
 
@@ -271,6 +303,8 @@ class TelePaySyncClient:
                 "active": active,
             },
         )
+        logger.debug(f"response: {response.text}")
+
         validate_response(response)
         return Webhook.from_json(response.json())
 
@@ -289,6 +323,8 @@ class TelePaySyncClient:
                 "active": active,
             },
         )
+        logger.debug(f"response: {response.text}")
+
         validate_response(response)
         return Webhook.from_json(response.json())
 
@@ -297,6 +333,8 @@ class TelePaySyncClient:
         Activate a webhook
         """
         response = self.http_client.post(f"activateWebhook/{id}")
+        logger.debug(f"response: {response.text}")
+
         validate_response(response)
         return Webhook.from_json(response.json())
 
@@ -305,6 +343,8 @@ class TelePaySyncClient:
         Deactivate a webhook
         """
         response = self.http_client.post(f"deactivateWebhook/{id}")
+        logger.debug(f"response: {response.text}")
+
         validate_response(response)
         return Webhook.from_json(response.json())
 
@@ -313,6 +353,8 @@ class TelePaySyncClient:
         Delete a webhook
         """
         response = self.http_client.post(f"deleteWebhook/{id}")
+        logger.debug(f"response: {response.text}")
+
         validate_response(response)
         return response.json()
 
@@ -321,6 +363,8 @@ class TelePaySyncClient:
         Get webhook
         """
         response = self.http_client.get(f"getWebhook/{id}")
+        logger.debug(f"response: {response.text}")
+
         validate_response(response)
         return Webhook.from_json(response.json())
 
@@ -329,5 +373,7 @@ class TelePaySyncClient:
         Get webhooks
         """
         response = self.http_client.get("getWebhooks")
+        logger.debug(f"response: {response.text}")
+
         validate_response(response)
         return Webhooks.from_json(response.json())
