@@ -1,8 +1,8 @@
 import os
 import uuid
 
-from httpx import Timeout
 import pytest
+from httpx import Timeout
 
 from telepay.v1 import Invoice, TelePayAuth, TelePayError, TelePaySyncClient, Webhook
 
@@ -86,7 +86,7 @@ def test_get_asset(client: TelePaySyncClient):
 
 def test_get_assets(client: TelePaySyncClient):
     assets = client.get_assets()
-    assert len(assets.assets) == 4  # TON, TON_testnet, Hive, HBD
+    assert len(assets.assets) == 3  # TON, Hive, HBD
 
 
 def test_get_invoices(client: TelePaySyncClient):
@@ -129,10 +129,11 @@ def test_cancel_invoice(client: TelePaySyncClient, invoice: Invoice):
 def test_cancel_invoice_already_canceled(client: TelePaySyncClient):
     with pytest.raises(TelePayError) as error:
         client.cancel_invoice("SORR79EBLB")
+    print(error.value)
 
     assert error.value.status_code == 304
-    assert error.value.error == "invoice.already-cancelled"
-    assert error.value.message == ERRORS["invoice.already-cancelled"]
+    assert error.value.error == 304
+    assert error.value.message == b""
 
 
 def test_cancel_invoice_not_found(client: TelePaySyncClient):
@@ -189,8 +190,8 @@ def test_transfer_to_wrong_user(client: TelePaySyncClient):
         )
 
     assert error.value.status_code == 404
-    assert error.value.error == "transfer.user-not-found"
-    assert error.value.message == ERRORS["transfer.user-not-found"]
+    assert error.value.error == "account.not-found"
+    assert error.value.message == ERRORS["account.not-found"]
 
 
 def test_transfer_to_itself(client: TelePaySyncClient):

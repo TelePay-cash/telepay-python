@@ -59,7 +59,9 @@ class TelePaySyncClient:
         validate_response(response)
         return Account.from_json(response.json())
 
-    def get_balance(self, asset=None, blockchain=None, network=None) -> Union[Wallet, Wallets]:
+    def get_balance(
+        self, asset=None, blockchain=None, network=None
+    ) -> Union[Wallet, Wallets]:
         """
         Get your merchant wallet assets with corresponding balance
         """
