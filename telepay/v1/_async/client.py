@@ -1,5 +1,6 @@
 import logging
 from dataclasses import dataclass, field
+from typing import Union
 
 from httpx._config import Timeout
 from httpx._types import TimeoutTypes
@@ -58,7 +59,7 @@ class TelePayAsyncClient:
         validate_response(response)
         return Account.from_json(response.json())
 
-    async def get_balance(self, asset=None, blockchain=None, network=None) -> Wallets:
+    async def get_balance(self, asset=None, blockchain=None, network=None) -> Union[Wallet, Wallets]:
         """
         Get your merchant wallet assets with corresponding balance
         """
@@ -70,7 +71,6 @@ class TelePayAsyncClient:
             logger.debug(f"Response: {response.text}")
 
             validate_response(response)
-            # FIXME: Should return Wallets
             return Wallet.from_json(response.json())
         else:
             response = await self.http_client.get("getBalance")
