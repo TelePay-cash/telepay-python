@@ -3,7 +3,6 @@ import uuid
 
 from httpx import Timeout
 from pytest import fixture
-from pytest import mark as pytest_mark
 
 from telepay.v1 import Invoice, TelePayAuth, TelePayError, TelePaySyncClient, Webhook
 
@@ -46,7 +45,6 @@ def create_webhook(client: TelePaySyncClient):
     yield webhook
 
 
-@pytest_mark.anyio
 def test_error(client: TelePaySyncClient):
     client = TelePaySyncClient("")
     try:
@@ -56,7 +54,6 @@ def test_error(client: TelePaySyncClient):
         assert True
 
 
-@pytest_mark.anyio
 def test_client_with_context():
     api_key = os.environ["TELEPAY_SECRET_API_KEY"]
     # TODO: add more tests and ensure the client api is the same
@@ -64,7 +61,6 @@ def test_client_with_context():
         assert client is not None
 
 
-@pytest_mark.anyio
 def test_get_me(client: TelePaySyncClient):
     try:
         client.get_me()
@@ -74,7 +70,6 @@ def test_get_me(client: TelePaySyncClient):
             assert e.message == ERRORS["forbidden"]
 
 
-@pytest_mark.anyio
 def test_get_balance(client: TelePaySyncClient):
     try:
         client.get_balance()
@@ -85,7 +80,6 @@ def test_get_balance(client: TelePaySyncClient):
             assert e.message == ERRORS["forbidden"]
 
 
-@pytest_mark.anyio
 def test_get_asset(client: TelePaySyncClient):
     try:
         client.get_asset(asset="TON", blockchain="TON")
@@ -95,7 +89,6 @@ def test_get_asset(client: TelePaySyncClient):
             assert e.message == ERRORS["forbidden"]
 
 
-@pytest_mark.anyio
 def test_get_assets(client: TelePaySyncClient):
     try:
         client.get_assets()
@@ -105,7 +98,6 @@ def test_get_assets(client: TelePaySyncClient):
             assert e.message == ERRORS["forbidden"]
 
 
-@pytest_mark.anyio
 def test_get_invoices(client: TelePaySyncClient):
     try:
         client.get_invoices()
@@ -115,7 +107,6 @@ def test_get_invoices(client: TelePaySyncClient):
             assert e.message == ERRORS["forbidden"]
 
 
-@pytest_mark.anyio
 def test_get_invoice(client: TelePaySyncClient, invoice: Invoice):
     try:
         client.get_invoice(invoice.number)
@@ -125,7 +116,6 @@ def test_get_invoice(client: TelePaySyncClient, invoice: Invoice):
             assert e.message == ERRORS["forbidden"]
 
 
-@pytest_mark.anyio
 def test_get_invoice_not_found(client: TelePaySyncClient):
     number = random_text(10)
     try:
@@ -139,7 +129,6 @@ def test_get_invoice_not_found(client: TelePaySyncClient):
             assert e.message == ERRORS["invoice.not-found"]
 
 
-@pytest_mark.anyio
 def test_cancel_invoice(client: TelePaySyncClient, invoice: Invoice):
     try:
         client.cancel_invoice(invoice.number)
@@ -152,7 +141,6 @@ def test_cancel_invoice(client: TelePaySyncClient, invoice: Invoice):
             assert e.message == ERRORS["invoice.not-found"]
 
 
-@pytest_mark.anyio
 def test_cancel_invoice_not_found(client: TelePaySyncClient):
     number = random_text(10)
     try:
@@ -167,7 +155,6 @@ def test_cancel_invoice_not_found(client: TelePaySyncClient):
             assert e.message == ERRORS["invoice.not-found"]
 
 
-@pytest_mark.anyio
 def test_delete_invoice(client: TelePaySyncClient, invoice: Invoice):
     try:
         client.cancel_invoice(invoice.number)
@@ -181,7 +168,6 @@ def test_delete_invoice(client: TelePaySyncClient, invoice: Invoice):
             assert e.message == ERRORS["invoice.not-found"]
 
 
-@pytest_mark.anyio
 def test_delete_invoice_not_found(client: TelePaySyncClient):
     number = random_text(10)
     try:
@@ -196,7 +182,6 @@ def test_delete_invoice_not_found(client: TelePaySyncClient):
             assert e.message == ERRORS["invoice.not-found"]
 
 
-@pytest_mark.anyio
 def test_transfer_without_funds(client: TelePaySyncClient):
     try:
         client.transfer(
@@ -218,7 +203,6 @@ def test_transfer_without_funds(client: TelePaySyncClient):
             assert e.message == ERRORS["invoice.not-found"]
 
 
-@pytest_mark.anyio
 def test_transfer_to_wrong_user(client: TelePaySyncClient):
     username = random_text(20)
     try:
@@ -241,7 +225,6 @@ def test_transfer_to_wrong_user(client: TelePaySyncClient):
             assert e.message == ERRORS["account.not-found"]
 
 
-@pytest_mark.anyio
 def test_transfer_to_itself(client: TelePaySyncClient):
     username = client.get_me().merchant["username"]
     try:
@@ -261,7 +244,6 @@ def test_transfer_to_itself(client: TelePaySyncClient):
             assert e.message == ERRORS["forbidden"]
 
 
-@pytest_mark.anyio
 def test_withdraw_minimum(client: TelePaySyncClient):
     try:
         client.get_withdraw_minimum(
@@ -275,7 +257,6 @@ def test_withdraw_minimum(client: TelePaySyncClient):
             assert e.message == ERRORS["forbidden"]
 
 
-@pytest_mark.anyio
 def test_get_withdraw_fee(client: TelePaySyncClient):
     try:
         client.get_withdraw_fee(
@@ -292,7 +273,6 @@ def test_get_withdraw_fee(client: TelePaySyncClient):
             assert e.message == ERRORS["forbidden"]
 
 
-@pytest_mark.anyio
 def test_withdraw(client: TelePaySyncClient):
     try:
         client.withdraw(
@@ -315,7 +295,6 @@ def test_withdraw(client: TelePaySyncClient):
             assert e.message == ERRORS["forbidden"]
 
 
-@pytest_mark.anyio
 def test_update_webhook(client: TelePaySyncClient, webhook: Webhook):
     try:
         client.update_webhook(
@@ -335,7 +314,6 @@ def test_update_webhook(client: TelePaySyncClient, webhook: Webhook):
             assert e.message == ERRORS["webhook.not-found"]
 
 
-@pytest_mark.anyio
 def test_activate_webhook(client: TelePaySyncClient, webhook: Webhook):
     try:
         client.activate_webhook(id=webhook.id)
@@ -349,7 +327,6 @@ def test_activate_webhook(client: TelePaySyncClient, webhook: Webhook):
             assert e.message == ERRORS["webhook.not-found"]
 
 
-@pytest_mark.anyio
 def test_deactivate_webhook(client: TelePaySyncClient, webhook: Webhook):
     try:
         client.deactivate_webhook(id=webhook.id)
@@ -363,7 +340,6 @@ def test_deactivate_webhook(client: TelePaySyncClient, webhook: Webhook):
             assert e.message == ERRORS["webhook.not-found"]
 
 
-@pytest_mark.anyio
 def test_delete_webhook(client: TelePaySyncClient, webhook: Webhook):
     try:
         client.delete_webhook(id=webhook.id)
@@ -376,7 +352,6 @@ def test_delete_webhook(client: TelePaySyncClient, webhook: Webhook):
             assert e.message == ERRORS["webhook.not-found"]
 
 
-@pytest_mark.anyio
 def test_get_webhook(client: TelePaySyncClient, webhook: Webhook):
     try:
         client.get_webhook(id=webhook.id)
@@ -390,7 +365,6 @@ def test_get_webhook(client: TelePaySyncClient, webhook: Webhook):
             assert e.message == ERRORS["webhook.not-found"]
 
 
-@pytest_mark.anyio
 def test_get_webhooks(client: TelePaySyncClient):
     try:
         client.get_webhooks()
