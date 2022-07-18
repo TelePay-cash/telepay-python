@@ -126,9 +126,11 @@ def test_cancel_invoice(client: TelePaySyncClient, invoice: Invoice):
     assert invoice.description == "Testing"
 
 
-def test_cancel_invoice_already_canceled(client: TelePaySyncClient):
+def test_cancel_invoice_already_canceled(client: TelePaySyncClient, invoice: Invoice):
+    client.cancel_invoice(invoice.number)
+
     with pytest.raises(TelePayError) as error:
-        client.cancel_invoice("SORR79EBLB")
+        client.cancel_invoice(invoice.number)
     print(error.value)
 
     assert error.value.status_code == 304
@@ -299,7 +301,4 @@ def test_get_webhook(client: TelePaySyncClient, webhook: Webhook):
 
 def test_get_webhooks(client: TelePaySyncClient):
     webhooks = client.get_webhooks()
-    assert len(webhooks.webhooks) > 0
-    assert webhooks.webhooks[0].id is not None
-    assert webhooks.webhooks[0].url is not None
-    assert webhooks.webhooks[0].secret is not None
+    assert len(webhooks.webhooks) == 0
