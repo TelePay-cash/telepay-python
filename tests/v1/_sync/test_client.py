@@ -302,6 +302,3 @@ def test_get_webhook(client: TelePaySyncClient, webhook: Webhook):
 def test_get_webhooks(client: TelePaySyncClient):
     webhooks = client.get_webhooks()
     assert len(webhooks.webhooks) == 0
-    assert webhooks.webhooks[0].id is not None
-    assert webhooks.webhooks[0].url is not None
-    assert webhooks.webhooks[0].secret is not None
