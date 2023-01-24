@@ -56,7 +56,6 @@ class Invoice:
     @classmethod
     def from_json(cls, json: Any) -> "Invoice":
         logger.debug(f"Parsing Invoice from JSON: {json}")
-
         return parse_json(cls, **json)
 
 
@@ -70,5 +69,4 @@ class InvoiceList:
     @classmethod
     def from_json(cls, json: Any) -> "InvoiceList":
         logger.debug(f"Parsing InvoiceList from JSON: {json}")
-
         return parse_json(cls, **json)

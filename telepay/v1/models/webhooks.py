@@ -18,7 +18,6 @@ class Webhook:
     @classmethod
     def from_json(cls, json: Any) -> "Webhook":
         logger.debug(f"Parsing Webhook from JSON: {json}")
-
         return parse_json(cls, **json)
 
 
@@ -32,5 +31,4 @@ class Webhooks:
     @classmethod
     def from_json(cls, json: Any) -> "Webhooks":
         logger.debug(f"Parsing Webhooks from JSON: {json}")
-
         return parse_json(cls, **json)

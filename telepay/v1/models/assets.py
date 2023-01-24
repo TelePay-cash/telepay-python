@@ -31,5 +31,4 @@ class Assets:
     @classmethod
     def from_json(cls, json: Any) -> "Assets":
         logger.debug(f"Parsing Assets from JSON: {json}")
-
         return parse_json(cls, **json)

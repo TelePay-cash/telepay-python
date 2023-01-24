@@ -18,5 +18,4 @@ class Account:
     def from_json(cls, json: Any) -> "Account":
         del json["version"]
         logger.debug(f"Parsing Account from JSON: {json}")
-
         return parse_json(cls, **json)

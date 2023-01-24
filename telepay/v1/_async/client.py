@@ -55,7 +55,6 @@ class TelePayAsyncClient:
         """
         response = await self.http_client.get("getMe")
         logger.debug(f"Response: {response.text}")
-
         validate_response(response)
         return Account.from_json(response.json())
 
@@ -71,13 +70,11 @@ class TelePayAsyncClient:
                 json={"asset": asset, "blockchain": blockchain, "network": network},
             )
             logger.debug(f"Response: {response.text}")
-
             validate_response(response)
-            return Wallet.from_json(response.json())
+            return Wallets.from_json(response.json())
         else:
             response = await self.http_client.get("getBalance")
             logger.debug(f"Response: {response.text}")
-
             validate_response(response)
             return Wallets.from_json(response.json())
 
@@ -94,7 +91,6 @@ class TelePayAsyncClient:
             },
         )
         logger.debug(f"Response: {response.text}")
-
         validate_response(response)
         return Asset.from_json(response.json())
 
@@ -104,7 +100,6 @@ class TelePayAsyncClient:
         """
         response = await self.http_client.get("getAssets")
         logger.debug(f"Response: {response.text}")
-
         validate_response(response)
         return Assets.from_json(response.json())
 
@@ -114,7 +109,6 @@ class TelePayAsyncClient:
         """
         response = await self.http_client.get("getInvoices")
         logger.debug(f"Response: {response.text}")
-
         validate_response(response)
         return InvoiceList.from_json(response.json())
 
@@ -124,7 +118,6 @@ class TelePayAsyncClient:
         """
         response = await self.http_client.get(f"getInvoice/{number}")
         logger.debug(f"Response: {response.text}")
-
         validate_response(response)
         return Invoice.from_json(response.json())
 
@@ -158,7 +151,6 @@ class TelePayAsyncClient:
             },
         )
         logger.debug(f"Response: {response.text}")
-
         validate_response(response)
         return Invoice.from_json(response.json())
 
@@ -168,7 +160,6 @@ class TelePayAsyncClient:
         """
         response = await self.http_client.post(f"cancelInvoice/{number}")
         logger.debug(f"Response: {response.text}")
-
         validate_response(response)
         return Invoice.from_json(response.json())
 
@@ -178,7 +169,6 @@ class TelePayAsyncClient:
         """
         response = await self.http_client.post(f"deleteInvoice/{number}")
         logger.debug(f"Response: {response.text}")
-
         validate_response(response)
         return response.json()
 
@@ -207,7 +197,6 @@ class TelePayAsyncClient:
             },
         )
         logger.debug(f"Response: {response.text}")
-
         validate_response(response)
         return response.json()
 
@@ -229,7 +218,6 @@ class TelePayAsyncClient:
             },
         )
         logger.debug(f"Response: {response.text}")
-
         validate_response(response)
         return response.json()
 
@@ -257,7 +245,6 @@ class TelePayAsyncClient:
             },
         )
         logger.debug(f"Response: {response.text}")
-
         validate_response(response)
         return response.json()
 
@@ -286,7 +273,6 @@ class TelePayAsyncClient:
             },
         )
         logger.debug(f"Response: {response.text}")
-
         validate_response(response)
         return response.json()
 
@@ -306,7 +292,6 @@ class TelePayAsyncClient:
             },
         )
         logger.debug(f"Response: {response.text}")
-
         validate_response(response)
         return Webhook.from_json(response.json())
 
@@ -326,7 +311,6 @@ class TelePayAsyncClient:
             },
         )
         logger.debug(f"Response: {response.text}")
-
         validate_response(response)
         return Webhook.from_json(response.json())
 
@@ -352,7 +336,6 @@ class TelePayAsyncClient:
         """
         response = await self.http_client.post(f"deleteWebhook/{id}")
         logger.debug(f"Response: {response.text}")
-
         validate_response(response)
         return response.json()
 
@@ -362,7 +345,6 @@ class TelePayAsyncClient:
         """
         response = await self.http_client.get(f"getWebhook/{id}")
         logger.debug(f"Response: {response.text}")
-
         validate_response(response)
         return Webhook.from_json(response.json())
 
@@ -372,6 +354,5 @@ class TelePayAsyncClient:
         """
         response = await self.http_client.get("getWebhooks")
         logger.debug(f"Response: {response.text}")
-
         validate_response(response)
         return Webhooks.from_json(response.json())

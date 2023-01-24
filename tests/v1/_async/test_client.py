@@ -59,7 +59,6 @@ async def test_error(client: TelePayAsyncClient):
 @pytest_mark.anyio
 async def test_client_with_context():
     api_key = os.environ["TELEPAY_SECRET_API_KEY"]
-    # TODO: add more tests and ensure the client api is the same
     async with TelePayAsyncClient(secret_api_key=api_key) as client:
         assert client is not None
 
@@ -98,7 +97,7 @@ async def test_get_asset(client: TelePayAsyncClient):
 @pytest_mark.anyio
 async def test_get_assets(client: TelePayAsyncClient):
     try:
-        await client.get_asset(asset="TON", blockchain="TON")
+        await client.get_assets()
     except TelePayError as e:
         if e.status_code == 403:
             assert e.error == "forbidden"

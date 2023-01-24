@@ -17,7 +17,6 @@ class Wallet:
     @classmethod
     def from_json(cls, json: Any) -> "Wallet":
         logger.debug(f"Parsing wallet from JSON: {json}")
-
         return parse_json(cls, **json)
 
 
@@ -31,5 +30,4 @@ class Wallets:
     @classmethod
     def from_json(cls, json: Any) -> "Wallets":
         logger.debug(f"Parsing wallets from JSON: {json}")
-
         return parse_json(cls, **json)
