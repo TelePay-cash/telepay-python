@@ -2,7 +2,7 @@
 name = "telepay"
 version = "1.0.2"
 description = "Python SDK for the TelePay API"
-authors = ["Carlos Lugones <contact@lugodev.com>"]
+authors = ["Carlos Lugones", "Reinier Hernández", "Luis Diaz"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/TelePay-cash/telepay-python"
