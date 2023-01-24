@@ -35,8 +35,7 @@ jobs:
         tag: ${{ github.ref }}
         overwrite: true
         file_glob: true
-    - name: Publish in PyPI
-      uses: d1618033/gh-action-python-publish-using-poetry@master
+    - name: Pyblish to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
       with:
-        pypi_username: ${{ secrets.PYPI_USERNAME }}
-        pypi_password: ${{ secrets.PYPI_PASSWORD }}
+        password: ${{ secrets.PYPI_API_TOKEN }}
