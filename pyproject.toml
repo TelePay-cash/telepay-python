@@ -25,7 +25,7 @@ include = [
 "Bug Tracker" = "https://github.com/TelePay-cash/telepay-python/issues"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.10"
 httpx = "^0.23.0"
 python-dotenv = "^0.20.0"
 fastapi = "^0.75.1"
