@@ -12,10 +12,10 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: 3.8
-    - name: Set up Poetry 2.1.0
-      uses: abatilo/actions-poetry@v2.1.0
+    - name: Set up Poetry ${{ matrix.poetry-version }}
+      uses: abatilo/actions-poetry@v2.1.6
       with:
-        poetry-version: 1.1.2
+        poetry-version: ${{ matrix.poetry-version }}
     - name: Run tests
       env:
         TELEPAY_SECRET_API_KEY: ${{ secrets.TELEPAY_SECRET_API_KEY }}
