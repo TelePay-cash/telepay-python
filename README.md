@@ -364,12 +364,12 @@ The library is made by ([emoji key](https://allcontributors.org/docs/en/emoji-ke
         <a href="https://github.com/telepay-cash/telepay-python/commits?author=CarlosLugones" title="Code">💻</a>
     </td>
     <td align="center">
-        <a href="http://showwcase.com/ravenclawldz">
+        <a href="https://github.com/ilyvsc">
             <img src="https://avatars.githubusercontent.com/u/68219934?v=4" width="100px;" alt=""/><br />
-            <sub><b>Ravenclaw.ldz</b></sub>
+            <sub><b>Luis Diaz</b></sub>
         </a>
         <br />
-        <a href="https://github.com/telepay-cash/telepay-python/commits?author=ravenclawldz" title="Code">💻</a>
+        <a href="https://github.com/telepay-cash/telepay-python/commits?author=ilyvsc" title="Code">💻</a>
     </td>
     <td align="center">
         <a href="https://ragnarok22.dev">
